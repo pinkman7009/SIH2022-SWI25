@@ -3,10 +3,9 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Mainscreen from "./pages/Mainscreen";
 import { useNavigate } from "react-router";
-// import { useSelector } from "react-redux";
-// import setAuthToken from "./utils/setAuthToken";
+import { useSelector } from "react-redux";
 
-const AuthRoutes = ({ setToken }) => {
+const AuthRoutes = () => {
   const navigate = useNavigate();
   useEffect(() => {
     navigate("login");
@@ -14,24 +13,21 @@ const AuthRoutes = ({ setToken }) => {
   return (
     <>
       <Routes>
-        <Route exact path="/login" element={<Login setToken={setToken} />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
     </>
   );
 };
 
 function App() {
-  // const state = useSelector((state) => state);
+  // const token = useSelector((state) => state.login.token);
 
-  // if (state.token) setAuthToken(state.token);
-
-  // const token = null;
-
-  const [token, setToken] = useState(null);
+  let token = useSelector((state) => state.login.token);
+  token = localStorage.getItem("token");
 
   return (
     <BrowserRouter>
-      {token !== null ? <Mainscreen /> : <AuthRoutes setToken={setToken} />}
+      {token !== null ? <Mainscreen /> : <AuthRoutes />}
     </BrowserRouter>
   );
 }
