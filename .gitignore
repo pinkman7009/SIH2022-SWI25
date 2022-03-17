@@ -1,1 +1,4 @@
 web-frontend/node_modules
+
+web-backend/node_modules
+web-backend/config.env
