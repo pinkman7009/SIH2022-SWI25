@@ -3,7 +3,7 @@ import { PrimaryButton } from "../Buttons";
 
 const AddChildForm = () => {
   return (
-    <div className="p-6">
+    <div className="p-6 border-2 border-primary rounded-md m-6">
       <h3 className="text-[1.5rem]">Add Child Information</h3>
       <div className="border-b-2 border-gray-400 w-1/4"></div>
 
