@@ -7,7 +7,7 @@ const NestedNav = ({ links }) => {
       {links.map((link, index) => {
         return (
           <NavLink to={link.route} activeClassName="active" key={index}>
-            <div className="m-3 cursor-pointer hover:bg-secondary p-1">
+            <div className="mx-6 my-3 cursor-pointer hover:bg-secondary p-1">
               <p className="text-sm">{link.title}</p>
             </div>
           </NavLink>
