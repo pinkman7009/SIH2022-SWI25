@@ -44,6 +44,11 @@ dependencies:
   getwidget: ^2.0.5
   page_transition: ^2.0.5
   image_picker: ^0.8.4+11
+  cool_alert: ^1.1.0
+  nanoid: ^1.0.0
+  permission_handler: ^9.2.0
+  vibration: ^1.7.3
+
 
 dev_dependencies:
   flutter_test:

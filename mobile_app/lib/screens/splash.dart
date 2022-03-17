@@ -69,11 +69,11 @@ class _SplashState extends State<SplashScreen> {
                   SizedBox(
                     width: 10.0,
                   ),
-                  Text("Ministry of\nLabour and Employment\nGovernment of India",
+                  Text("Ministry of Labour and Employment\nGovernment of India",
                   style: TextStyle(
                     color: Color(0xFF1A2E47),
                     fontSize: 13.5,
-                    fontWeight: FontWeight.w600
+                    fontWeight: FontWeight.w700
                   ))
                 ],
               ),

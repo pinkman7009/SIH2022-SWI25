@@ -397,7 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).size.width * 0.5,
                                   ),
                                   child: Text(
-                                    'Complaints',
+                                    'Post Complaint',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
@@ -405,7 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Post your complaints here.',
+                                  'Post your complaints about child labour here.',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 10.0,
