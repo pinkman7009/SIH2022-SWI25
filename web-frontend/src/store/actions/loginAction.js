@@ -17,8 +17,7 @@ export const login = (email, password) => async (dispatch) => {
       form,
       { headers }
     );
-    console.log(res.data.token);
-    dispatch({ type: LOGIN, token: res.data.token });
+    dispatch({ type: LOGIN, payload: res.data });
   } catch (err) {
     console.error(err);
   }

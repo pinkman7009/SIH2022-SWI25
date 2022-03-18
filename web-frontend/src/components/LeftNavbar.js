@@ -16,8 +16,8 @@ const LeftNavbar = () => {
         route: "grievances/pending",
       },
       {
-        title: "Add New Grievance",
-        route: "grievance/add",
+        title: "Accepted Grievances",
+        route: "grievances/accepted",
       },
     ],
     childMonitoring: [

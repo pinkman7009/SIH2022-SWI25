@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AddButton } from "../Buttons";
 import Map from "../Map";
 import Charts from "./Charts";
 import numberSvg from "../../assets/mark.svg";
 import personSvg from "../../assets/person.svg";
 import grievanceSvg from "../../assets/underperform.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchGrievances } from "../../store/actions/grievanceAction";
 
 const DashboardSection = () => {
+  const grievances = useSelector((state) => state.grievances.reports);
+  const dispatch = useDispatch();
+
+  const pendingGrievances = grievances?.filter(
+    (item) => item.status === "Pending"
+  );
+
+  useEffect(() => {
+    if (!grievances) dispatch(fetchGrievances());
+  }, []);
+
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
@@ -50,7 +63,7 @@ const DashboardSection = () => {
               <img src={grievanceSvg} alt="" />
             </div>
             <div>
-              <p className="text-2xl font-bold">10</p>
+              <p className="text-2xl font-bold">{pendingGrievances?.length}</p>
               <p className="text-gray-500 mt-3">Number of Pending Grievances</p>
             </div>
           </div>

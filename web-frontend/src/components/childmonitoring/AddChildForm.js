@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PrimaryButton } from "../Buttons";
 import ChildMonitoring from "./ChildMonitoring";
 
 const AddChildForm = () => {
+  useEffect(() => {}, []);
   return (
     <>
       <div className="p-6 border-2 border-primary rounded-md m-6">
@@ -44,21 +45,7 @@ const AddChildForm = () => {
             />
           </div>
           <div className="flex items-center justify-between mr-16">
-            <p className="mr-3">Education</p>
-            <input
-              type="text"
-              className="rounded-lg shadow-lg p-3 h-12 w-2/3 border-2 border-primary my-6"
-            />
-          </div>
-          <div className="flex items-center justify-between mr-16">
             <p className="mr-3">Religion</p>
-            <input
-              type="text"
-              className="rounded-lg shadow-lg p-3 h-12 w-2/3 border-2 border-primary my-6"
-            />
-          </div>
-          <div className="flex items-center justify-between mr-16">
-            <p className="mr-3">Category</p>
             <input
               type="text"
               className="rounded-lg shadow-lg p-3 h-12 w-2/3 border-2 border-primary my-6"

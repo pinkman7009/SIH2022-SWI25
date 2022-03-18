@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Mainscreen from "./pages/Mainscreen";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import setAuthToken from "./utils/setAuthToken";
 
 const AuthRoutes = () => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ function App() {
 
   let token = useSelector((state) => state.login.token);
   token = localStorage.getItem("token");
+
+  if (token) setAuthToken(token);
 
   return (
     <BrowserRouter>

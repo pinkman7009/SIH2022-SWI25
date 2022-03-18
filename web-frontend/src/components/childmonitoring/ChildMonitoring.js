@@ -75,12 +75,16 @@ const Health = () => {
   return (
     <div className="w-1/2">
       <div className="flex items-center justify-between">
-        <p className="font-bold">Has rescued child been enrolled in school?</p>
-        <input
-          type="text"
-          className="rounded-lg shadow-lg p-3 h-12 w-1/4 border-2 border-primary my-6"
-          placeholder="Name of child"
-        />
+        <p className="font-bold">
+          Is rescued child family getting health cards?
+        </p>
+        <select
+          name="healthCards"
+          className="rounded-lg shadow-lg p-3 h-12 w-1/3 border-2 border-primary my-6 bg-white"
+        >
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
       </div>
     </div>
   );
@@ -103,12 +107,63 @@ const Id = () => {
   return (
     <div className="w-1/2">
       <div className="flex items-center justify-between">
-        <p className="font-bold">Has rescued child been enrolled in school?</p>
+        <p className="font-bold">Aadhaar No.</p>
         <input
           type="text"
-          className="rounded-lg shadow-lg p-3 h-12 w-1/4 border-2 border-primary my-6"
-          placeholder="Name of child"
+          className="rounded-lg shadow-lg p-3 h-12 w-1/2 border-2 border-primary my-6"
         />
+      </div>
+      <div className="flex items-center justify-between">
+        <p className="font-bold">Ration Card No.</p>
+        <input
+          type="text"
+          className="rounded-lg shadow-lg p-3 h-12 w-1/2 border-2 border-primary my-6"
+        />
+      </div>
+    </div>
+  );
+};
+const Transaction = () => {
+  const transactions = [
+    {
+      id: 1,
+      date: "21-01-2022",
+      description: "School Expenditure",
+      amount: 5000,
+    },
+    {
+      id: 2,
+      date: "21-01-2022",
+      description: "School Expenditure",
+      amount: 5000,
+    },
+    {
+      id: 3,
+      date: "21-01-2022",
+      description: "School Expenditure",
+      amount: 5000,
+    },
+  ];
+
+  return (
+    <div className="flex justify-center items-center">
+      <div className="w-1/2">
+        {transactions.map((item) => (
+          <div className=" border-primary border-2 rounded-md p-3 m-3">
+            <div className="flex items-center justify-between">
+              <p className="font-bold">Transaction Date</p>
+              <p>{item.date}</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="font-bold">Description</p>
+              <p>{item.description}</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="font-bold">Amount</p>
+              <p>{item.amount}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -139,21 +194,21 @@ const ChildMonitoring = () => {
           >
             Health History
           </div>
-          <div
+          {/* <div
             className={`border-primary ${
               tab === 2 ? "bg-primary text-white" : "text-primary"
             } border-2 rounded-t-2xl p-3  w-1/5 flex justify-center items-center cursor-pointer hover:bg-primary hover:text-white transition-all ease-in font-bold`}
             onClick={() => setTab(2)}
           >
             Family Details
-          </div>
+          </div> */}
           <div
             className={`border-primary  ${
               tab === 3 ? "bg-primary text-white" : "text-primary"
             } border-2 rounded-t-2xl p-3  w-1/5 flex justify-center items-center cursor-pointer hover:bg-primary hover:text-white transition-all ease-in font-bold`}
             onClick={() => setTab(3)}
           >
-            ID Details
+            Transaction Details
           </div>
         </div>
         <div className="border-primary border-2 p-6 rounded-md ">
@@ -163,7 +218,7 @@ const ChildMonitoring = () => {
             ? Health()
             : tab === 2
             ? Family()
-            : Id()}
+            : Transaction()}
         </div>
       </div>
     </div>

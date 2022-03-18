@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PrimaryButton } from "../components/Buttons";
 import TopNavbar from "../components/TopNavbar";
 import { useDispatch } from "react-redux";
 import { login } from "../store/actions/loginAction";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +16,10 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    navigate("/login");
+  }, []);
 
   return (
     <>
