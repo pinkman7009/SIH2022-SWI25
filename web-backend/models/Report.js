@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const ReportSchema = mongoose.Schema({
+  photo: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,
@@ -13,6 +16,8 @@ const ReportSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  lat: String,
+  long: String,
   reportersName: {
     type: String,
     required: true,
@@ -21,11 +26,17 @@ const ReportSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  concern: {
+  severity: {
     type: String,
-    enum: ["AVERAGE", "BAD", "VERY BAD"],
-    default: "AVERAGE",
+    enum: ["Normal", "Moderate", "High", "Critical"],
+    default: "Moderate",
   },
+  status: {
+    type: String,
+    enum: ["Accepted", "Pending", "Denied"],
+    default: "Pending",
+  },
+
   date: {
     type: Date,
     default: Date.now,

@@ -45,4 +45,22 @@ router.get("/:id", protect, async (req, res) => {
   }
 });
 
+router.put("/:id", protect, async (req, res) => {
+  try {
+    const report = await Report.findById(req.params.id);
+
+    report.status = req.status || report.status;
+
+    await report.save();
+
+    res.status(201).json({
+      report: report,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Server Error",
+    });
+  }
+});
+
 module.exports = router;
