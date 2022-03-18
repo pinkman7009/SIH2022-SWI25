@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { logout } from "../store/actions/loginAction";
+import { useDispatch } from "react-redux";
 
 const TopNavbar = ({ showLogo, isLoggedIn }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="bg-primary w-full h-24 p-3 flex justify-center items-center text-lg text-white relative">
       {showLogo && (
@@ -21,7 +25,14 @@ const TopNavbar = ({ showLogo, isLoggedIn }) => {
       {isLoggedIn === true ? (
         <Link to="/login">
           <div>
-            <p className="absolute top-8 right-5">Logout</p>
+            <p
+              className="absolute top-8 right-5"
+              onClick={() => {
+                dispatch(logout());
+              }}
+            >
+              Logout
+            </p>
           </div>
         </Link>
       ) : null}
