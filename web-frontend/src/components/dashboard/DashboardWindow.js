@@ -5,6 +5,7 @@ import TopNavbar from "../TopNavbar";
 import DashboardSection from "./DashboardSection";
 import AddChildForm from "../childmonitoring/AddChildForm";
 import ChildDatabase from "../childmonitoring/ChildDatabase";
+import ChildDetails from "../childmonitoring/ChildDetails";
 
 const DashboardWindow = () => {
   return (
@@ -27,6 +28,11 @@ const DashboardWindow = () => {
             exact
             path="/childmonitoring/childdatabase"
             element={<ChildDatabase />}
+          />
+          <Route
+            exact
+            path="/childmonitoring/childdetails/:id"
+            element={<ChildDetails />}
           />
         </Routes>
       </div>

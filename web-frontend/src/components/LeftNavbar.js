@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretDown, AiFillDashboard } from "react-icons/ai";
+import { BiSad } from "react-icons/bi";
+import { FaChild, FaMapMarkerAlt } from "react-icons/fa";
 import NestedNav from "./NestedNav";
 
 const LeftNavbar = () => {
@@ -43,7 +45,8 @@ const LeftNavbar = () => {
       <div className="max-h-[85vh] mt-8 font-bold text-lg">
         <NavLink to="/" activeClassName="active">
           <div className="flex items-center transition-all p-3 hover:bg-secondary">
-            Dashboard
+            <AiFillDashboard />
+            <p className="ml-3">Dashboard</p>
           </div>
         </NavLink>
 
@@ -52,7 +55,10 @@ const LeftNavbar = () => {
             className="flex items-center justify-between transition-all p-3 cursor-pointer hover:bg-secondary"
             onClick={() => setNestedGrievancelink(!nestedGrievancelink)}
           >
-            <p> Grievances</p>
+            <div className="flex items-center">
+              <BiSad />
+              <p className="ml-3"> Grievances</p>
+            </div>
             <AiFillCaretDown />
           </div>
           {nestedGrievancelink === true ? (
@@ -65,7 +71,10 @@ const LeftNavbar = () => {
             className="flex items-center justify-between transition-all p-3 cursor-pointer hover:bg-secondary"
             onClick={() => setNestedChildlink(!nestedChildlink)}
           >
-            <p>Child Monitoring</p>
+            <div className="flex items-center">
+              <FaChild />
+              <p className="ml-3">Child Monitoring</p>
+            </div>
             <AiFillCaretDown />
           </div>
 
@@ -75,7 +84,8 @@ const LeftNavbar = () => {
         </div>
         <NavLink to="/entitlementzone" activeClassName="active">
           <div className="flex items-center transition-all p-3 hover:bg-secondary">
-            Entitlement Zone
+            <FaMapMarkerAlt />
+            <p className="ml-3">Entitlement Zone</p>
           </div>
         </NavLink>
       </div>
