@@ -9,9 +9,11 @@ const ChildSchema = mongoose.Schema({
   reporingDetails: {
     type: mongoose.Types.ObjectId,
     ref: "Report",
-    required: true,
   },
-  guardianName: String,
+  FatherName: String,
+  MotherName: String,
+  Religion: String,
+  Caste: String,
   gender: {
     type: String,
     enum: ["Male", "Female", "Other"],
