@@ -14,6 +14,9 @@ module.exports = {
         secondary: {
           DEFAULT: "#163B73",
         },
+        tertiary: {
+          DEFAULT: "#00B2FF",
+        },
         primaryBg: {
           // DEFAULT: "rgb(232, 241, 245)",
           DEFAULT: "#FFFFFF",
@@ -21,6 +24,9 @@ module.exports = {
         secondaryBg: {
           DEFAULT: "rgb(232, 241, 245)",
           // DEFAULT: "#FFFFFF",
+        },
+        lightBlue: {
+          DEFAULT: "rgb(232, 241, 245)",
         },
       },
       fontFamily: {
