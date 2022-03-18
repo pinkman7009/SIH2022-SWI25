@@ -544,7 +544,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .copyWith(color: Colors.grey),
                         ),
                         Text(
-                          'CLTS, SRMIST, Tamil Nadu',
+                          'CLMS, SRMIST, Tamil Nadu',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!

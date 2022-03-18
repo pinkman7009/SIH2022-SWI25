@@ -71,12 +71,16 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   // String imageUrl3;
   // String imageUrl4;
 
+  final severity = ['Low', 'Moderate', 'High', 'Critical'];
+
   int flag = 0;
 
   ImagePicker picker = new ImagePicker();
 
   final RoundedLoadingButtonController _btnController =
   new RoundedLoadingButtonController();
+
+  String? value = "Moderate";
 
   _openCamera(BuildContext context) async {
     var picture = await picker.pickImage(source: ImageSource.camera);
@@ -462,6 +466,30 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 0.5),
+                        borderRadius: BorderRadius.circular(5.0)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 11.0, top:3.0,right: 11.0,bottom: 3.0),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: value,
+                            iconSize: 33,
+                            icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+                            isExpanded: true,
+                            items: severity.map(buildMenuItem).toList(),
+                            onChanged: (value) => setState(() {
+                              this.value = value;
+                            }),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
                       onChanged: (value) {
                         stateDescription = value;
@@ -578,27 +606,38 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                               if (permissionStatus.isGranted) {
                                 var file1 = File(imageFile1.path);
 
-                                if (imageFile1 != null) {
-                                  var snapshot1 = await _storage
-                                      .ref()
-                                      .child('$complaintID/file1')
-                                      .putFile(file1);
-                                  var downloadUrl1 =
-                                  await snapshot1.ref.getDownloadURL();
 
-                                  // var downloadUrl1 = await _storage.ref().getDownloadURL();
-                                  // var downloadUrl2 = await _storage.ref().getDownloadURL();
-                                  // var downloadUrl3 = await _storage.ref().getDownloadURL();
-                                  // var downloadUrl4 = await _storage.ref().getDownloadURL();
+                                  if (imageFile1 != null) {
+                                    var snapshot1 = await _storage
+                                        .ref()
+                                        .child('$complaintID/file1')
+                                        .putFile(file1);
+                                    var downloadUrl1 =
+                                    await snapshot1.ref.getDownloadURL();
 
-                                  setState(() {
-                                    imageUrl1 = downloadUrl1.toString();
-                                  });
+                                    // var downloadUrl1 = await _storage.ref().getDownloadURL();
+                                    // var downloadUrl2 = await _storage.ref().getDownloadURL();
+                                    // var downloadUrl3 = await _storage.ref().getDownloadURL();
+                                    // var downloadUrl4 = await _storage.ref().getDownloadURL();
 
-                                  print("********IMAGE URL $imageUrl1");
-                                } else {
-                                  print('No Path Received');
-                                }
+                                    setState(() {
+                                      imageUrl1 = downloadUrl1.toString();
+                                    });
+
+                                    print("********IMAGE URL $imageUrl1");
+                                    if(imageUrl1 == ""){
+                                      setState(() {
+                                        _showErrorDialog(
+                                            "Uhh! Please try again later.");
+                                      });
+                                    }
+
+                                  }
+                                  else {
+                                    print('No Path Received');
+                                  }
+
+
                               } else {
                                 setState(() {
                                   _showErrorDialog(
@@ -637,8 +676,10 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
             ],
           ),
         ),
+
       ),
     );
+
 
     // Widget _buildButton({VoidCallback onTap, String text, Color color}) {
     //   return Padding(
@@ -662,4 +703,11 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
     //   );
     // }
   }
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+    value: item,
+    child: Text(
+      item,
+      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 17),
+    ),
+  );
 }
