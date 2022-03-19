@@ -100,7 +100,7 @@ const GrievanceItem = ({ grievance, pending }) => {
             text="Register Child"
             handleClick={() =>
               navigate(
-                `/childmonitoring/addchild?name=${name}&reportingId=${_id}`
+                `/childmonitoring/addchild?name=${name}&reportingId=${_id}&photo=${photo}`
               )
             }
           />

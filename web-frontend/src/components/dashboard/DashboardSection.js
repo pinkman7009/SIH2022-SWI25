@@ -28,7 +28,7 @@ const DashboardSection = () => {
           <div className="border-b-2 border-gray-400 w-full"></div>
         </div>
         <div className="w-1/5 flex justify-between items-center">
-          <AddButton text="Add Grievance" />
+          {/* <AddButton text="Add Grievance" /> */}
           <AddButton text="Add Child" />
         </div>
       </div>
