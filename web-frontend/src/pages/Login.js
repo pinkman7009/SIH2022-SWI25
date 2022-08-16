@@ -26,7 +26,7 @@ const Login = () => {
       <TopNavbar showLogo={true} isLoggedIn={false} />
       <div className="bg-secondaryBg min-h-screen w-full flex justify-center items-center">
         <div className="rounded-3xl shadow-md p-6 w-1/4 flex flex-col items-center justify-evenly bg-white h-[500px]">
-          <h3 className="text-[2rem]">CLTS Login</h3>
+          <h3 className="text-[2rem]">CLMS Login</h3>
           <div className="mx-auto w-2/3">
             <input
               type="email"

@@ -7,9 +7,11 @@ import personSvg from "../../assets/person.svg";
 import grievanceSvg from "../../assets/underperform.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";
+import { fetchChildren } from "../../store/actions/childAction";
 
 const DashboardSection = () => {
   const grievances = useSelector((state) => state.grievances.reports);
+  const children = useSelector((state) => state.children.children);
   const dispatch = useDispatch();
 
   const pendingGrievances = grievances?.filter(
@@ -18,6 +20,7 @@ const DashboardSection = () => {
 
   useEffect(() => {
     if (!grievances) dispatch(fetchGrievances());
+    if (!children) dispatch(fetchChildren());
   }, []);
 
   return (
@@ -39,7 +42,7 @@ const DashboardSection = () => {
               <img src={numberSvg} alt="" />
             </div>
             <div>
-              <p className="text-2xl font-bold">62</p>
+              <p className="text-2xl font-bold">{children?.length}</p>
               <p className="text-gray-500 mt-3">Number of Children</p>
             </div>
           </div>

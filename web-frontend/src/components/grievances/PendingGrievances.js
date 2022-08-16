@@ -9,7 +9,7 @@ const PendingGrievances = () => {
   let grievances = useSelector((state) => state.grievances.reports);
 
   useEffect(() => {
-    if (!grievances) dispatch(fetchGrievances());
+    dispatch(fetchGrievances());
   }, []);
 
   grievances = grievances?.filter((item) => item.status === "Pending");
