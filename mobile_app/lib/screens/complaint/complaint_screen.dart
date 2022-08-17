@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -18,6 +19,8 @@ import 'package:geopoint_location/geopoint_location.dart';
 import 'package:nanoid/nanoid.dart';
 import 'package:sih_user_app/screens/home_screen.dart';
 import 'package:vibration/vibration.dart';
+import 'package:sih_user_app/api.dart';
+import 'package:http/http.dart' as http;
 
 // import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:geocoder/geocoder.dart';
@@ -49,7 +52,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   late String userPhoneNumber;
 
   late String childName;
-  late String stateDescription;
+  late String stateDescription = "";
 
   late double latitude;
   late double longitude;
@@ -60,16 +63,11 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   //
   late File imageFile1;
 
-  // File imageFile2;
-  // File imageFile3;
-  // File imageFile4;
-  //
   late String imageUrl1;
   late String sampleUrlImg = "";
 
-  // String imageUrl2;
-  // String imageUrl3;
-  // String imageUrl4;
+  bool apiCall = false;
+  String severityValue = "";
 
   final severity = ['Low', 'Moderate', 'High', 'Critical'];
 
@@ -80,7 +78,6 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   final RoundedLoadingButtonController _btnController =
   new RoundedLoadingButtonController();
 
-  String? value = "Moderate";
 
   _openCamera(BuildContext context) async {
     var picture = await picker.pickImage(source: ImageSource.camera);
@@ -99,6 +96,8 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
     flag == 1
         ? setState(() {
       imageFile1 = File(picture!.path);
+      sampleUrlImg = imageFile1.path.toString();
+
     })
         : print("");
 
@@ -107,9 +106,9 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
 
   fetchMeTheCoordinates() async {
     myGeoPoint = (await location.getMyCurrentLocation())!;
-    print(myGeoPoint.address);
-    print(myGeoPoint.latitude);
-    print(myGeoPoint.longitude);
+    // print(myGeoPoint.address);
+    // print(myGeoPoint.latitude);
+    // print(myGeoPoint.longitude);
     setState(() {
       latitude = myGeoPoint.latitude;
       longitude = myGeoPoint.longitude;
@@ -172,61 +171,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   void dispose() {
     super.dispose();
     // imageFile1 =  null as File;
-  }
-
-
-  _uploadImage() async {
-    // var permissionStatus = await Permission.photos.status;
-    //
-    // if (permissionStatus.isGranted) {
-    //   var file1 = File(imageFile1.path);
-    //   var file2 = File(imageFile2.path);
-    //   var file3 = File(imageFile3.path);
-    //   var file4 = File(imageFile4.path);
-    //
-    //   if (imageFile1 != null &&
-    //       imageFile2 != null &&
-    //       imageFile3 != null &&
-    //       imageFile4 != null) {
-    //     var snapshot1 =
-    //         await _storage.ref().child('${userData.uid}/file1').putFile(file1);
-    //     var downloadUrl1 = snapshot1.ref.getDownloadURL().toString();
-    //
-    //     var snapshot2 =
-    //         await _storage.ref().child('${userData.uid}/file2').putFile(file2);
-    //     var downloadUrl2 = snapshot2.ref.getDownloadURL().toString();
-    //
-    //     var snapshot3 =
-    //         await _storage.ref().child('${userData.uid}/file3').putFile(file3);
-    //     var downloadUrl3 = snapshot3.ref.getDownloadURL().toString();
-    //
-    //     var snapshot4 =
-    //         await _storage.ref().child('${userData.uid}/file4').putFile(file4);
-    //     var downloadUrl4 = snapshot4.ref.getDownloadURL().toString();
-    //
-    //     // var downloadUrl1 = await _storage.ref().getDownloadURL();
-    //     // var downloadUrl2 = await _storage.ref().getDownloadURL();
-    //     // var downloadUrl3 = await _storage.ref().getDownloadURL();
-    //     // var downloadUrl4 = await _storage.ref().getDownloadURL();
-    //
-    //     setState(() {
-    //       imageUrl1 = downloadUrl1;
-    //       imageUrl2 = downloadUrl2;
-    //       imageUrl3 = downloadUrl3;
-    //       imageUrl4 = downloadUrl4;
-    //     });
-    //     print("IMAGE URL $imageUrl1");
-    //     print("IMAGE URL $imageUrl2");
-    //     print("IMAGE URL $imageUrl3");
-    //     print("IMAGE URL $imageUrl4");
-    //   } else {
-    //     print('No Path Received');
-    //   }
-    // } else {
-    //   setState(() {
-    //     _showErrorDialog("Please grant permissions ot upload images.");
-    //   });
-    // }
+    severityValue = "";
   }
 
   String validate(String userName, String userPhoneNumber, String childName,
@@ -238,6 +183,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
         stateDescription == null) {
       return "Fields must not be empty";
     }
+
     return "pass";
   }
 
@@ -276,26 +222,6 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final successAlert = _buildButton(
-    //   onTap: () {
-    // CoolAlert.show(
-    //     context: context,
-    //     type: CoolAlertType.success,
-    //     text:
-    //     "Your complaint has been posted successfully. You can keep its track in check status section. ",
-    //     onConfirmBtnTap: () {
-    //       Navigator.pushReplacement(
-    //           context,
-    //           MaterialPageRoute(
-    //             builder: (context) => CheckStatusScreen(),
-    //           ));
-    //     });
-    // },
-    //   text: "Success",
-    //   color: Colors.green,
-    // );
-    // final complaintProvider =
-    // Provider.of<ComplaintProvider>(context, listen: false);
     return MaterialApp(
       home: DefaultTabController(
         length: choices.length,
@@ -466,30 +392,6 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 0.5),
-                        borderRadius: BorderRadius.circular(5.0)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 11.0, top:3.0,right: 11.0,bottom: 3.0),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: value,
-                            iconSize: 33,
-                            icon: Icon(Icons.arrow_drop_down, color: Colors.black),
-                            isExpanded: true,
-                            items: severity.map(buildMenuItem).toList(),
-                            onChanged: (value) => setState(() {
-                              this.value = value;
-                            }),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
                     child: TextFormField(
                       onChanged: (value) {
                         stateDescription = value;
@@ -519,6 +421,81 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                       ),
                     ),
                   ),
+
+                  // Put these if server works
+                  RaisedButton(
+                    onPressed: () {
+                      setState((){
+                        apiCall=true; // Set state like this
+                      });
+                      getSeverityLevel();
+                    },
+                    child: new Text("Get Severity Redressal Value"),
+                  ),
+                  getProperWidget(),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minWidth: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                      height: 58,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        // borderRadius: BorderRadius.circular(5),
+                        // border: Border.all(
+                        //   color: Colors.teal,
+                        //   width: 1.0,
+                        // ),
+                      ),
+                      child: InputDecorator(
+                        decoration: InputDecoration(
+                          labelText: 'Severity Redressal Value',
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.w500
+                          ),
+                          border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "$severityValue",
+                            style: TextStyle(
+                              fontSize: 16
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Put these if server works
+
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10.0),
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(color: Colors.black, width: 0.5),
+                  //         borderRadius: BorderRadius.circular(5.0)
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(left: 11.0, top:3.0,right: 11.0,bottom: 3.0),
+                  //       child: DropdownButtonHideUnderline(
+                  //         child: DropdownButton<String>(
+                  //           value: severityValue,
+                  //           iconSize: 33,
+                  //           icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+                  //           isExpanded: true,
+                  //           items: severity.map(buildMenuItem).toList(),
+                  //           onChanged: (value) => setState(() {
+                  //             this.severityValue = value as String;
+                  //           }),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // DropDown for Severity
                 ],
               ),
               Column(
@@ -592,8 +569,15 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                           controller: _btnController,
                           width: 250.0,
                           onPressed: () async {
-                            final result = validate(userName, userPhoneNumber,
-                                childName, widget.address, stateDescription);
+                            print(userName + userPhoneNumber.toString() + childName + widget.address + stateDescription + severityValue);
+                            String result = "";
+                            try {
+                              result = validate(userName, userPhoneNumber,
+                                  childName, widget.address, stateDescription);
+                            } catch (e){
+                              print("");
+                            }
+
                             print("RESULT IS $result");
                             String complaintID = await nanoid(20);
                             if (result != 'pass') {
@@ -602,11 +586,8 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                             } else {
                               var permissionStatus = await Permission.photos
                                   .status;
-
                               if (permissionStatus.isGranted) {
                                 var file1 = File(imageFile1.path);
-
-
                                   if (imageFile1 != null) {
                                     var snapshot1 = await _storage
                                         .ref()
@@ -614,30 +595,20 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                                         .putFile(file1);
                                     var downloadUrl1 =
                                     await snapshot1.ref.getDownloadURL();
-
-                                    // var downloadUrl1 = await _storage.ref().getDownloadURL();
-                                    // var downloadUrl2 = await _storage.ref().getDownloadURL();
-                                    // var downloadUrl3 = await _storage.ref().getDownloadURL();
-                                    // var downloadUrl4 = await _storage.ref().getDownloadURL();
-
                                     setState(() {
                                       imageUrl1 = downloadUrl1.toString();
                                     });
-
-                                    print("********IMAGE URL $imageUrl1");
+                                    print("IMAGE URL $imageUrl1");
                                     if(imageUrl1 == ""){
                                       setState(() {
                                         _showErrorDialog(
                                             "Uhh! Please try again later.");
                                       });
                                     }
-
                                   }
                                   else {
                                     print('No Path Received');
                                   }
-
-
                               } else {
                                 setState(() {
                                   _showErrorDialog(
@@ -647,7 +618,10 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
 
                               Vibration.vibrate();
 
+                              APIModel apiModel = new APIModel(userName, userPhoneNumber, childName, widget.address, latitude.toString(), longitude.toString(), severityValue, stateDescription, imageUrl1);
+                              apiModel.postComplaintToDB();
                               _btnController.success();
+
                               Future.delayed(Duration(seconds: 1), () {
                                 CoolAlert.show(
                                     context: context,
@@ -679,29 +653,6 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
 
       ),
     );
-
-
-    // Widget _buildButton({VoidCallback onTap, String text, Color color}) {
-    //   return Padding(
-    //     padding: const EdgeInsets.only(bottom: 10.0),
-    //     child: MaterialButton(
-    //       color: color,
-    //       minWidth: double.infinity,
-    //       shape:
-    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-    //       onPressed: onTap,
-    //       child: Padding(
-    //         padding: const EdgeInsets.symmetric(vertical: 15.0),
-    //         child: Text(
-    //           text,
-    //           style: TextStyle(
-    //             color: Colors.white,
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // }
   }
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
     value: item,
@@ -710,4 +661,45 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 17),
     ),
   );
+
+  Widget getProperWidget(){
+    if(apiCall)
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: new CircularProgressIndicator(),
+      );
+    else
+      return new Container();
+  }
+
+  void getSeverityLevel() async {
+    String stateDescription = this.stateDescription;
+    String baseURL = "child-abuse-sih.herokuapp.com";
+    String predictEndpoint = "/predict";
+    // , {"sentence":"$stateDescription"}
+    try{
+      var uri = Uri.http(baseURL, predictEndpoint, {'sentence': '$stateDescription'});
+      print(uri.toString());
+
+      final response = await http.get(uri);
+
+      print(response.statusCode);
+
+      Map<String, dynamic> map = jsonDecode(response.body);
+
+      String severity = map["severity"];
+      print(severity);
+
+      setState(() {
+        apiCall = false;
+        severityValue = severity;
+      });
+
+    } catch (e) {
+      setState(() {
+        apiCall = false;
+        severityValue = "Moderate";
+      });
+    }
+  }
 }

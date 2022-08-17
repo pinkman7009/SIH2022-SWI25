@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   fetchMeTheCoordinates() async {
     myGeoPoint = (await location.getMyCurrentLocation())!;
-    print(myGeoPoint.address);
+    // print(myGeoPoint.address);
     setState(() {
       address = myGeoPoint.address;
     });

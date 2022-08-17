@@ -48,6 +48,7 @@ dependencies:
   nanoid: ^1.0.0
   permission_handler: ^9.2.0
   vibration: ^1.7.3
+  http: ^0.13.4
 
 
 dev_dependencies:
