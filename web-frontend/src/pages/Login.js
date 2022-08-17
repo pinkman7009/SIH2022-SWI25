@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { PrimaryButton } from "../components/Buttons";
 import TopNavbar from "../components/TopNavbar";
+import { useDispatch } from "react-redux";
+import { login } from "../store/actions/loginAction";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ setToken }) => {
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
+
+  useEffect(() => {
+    navigate("/login");
+  }, []);
+
   return (
     <>
       <TopNavbar showLogo={true} isLoggedIn={false} />
@@ -14,19 +32,23 @@ const Login = ({ setToken }) => {
               type="email"
               className="rounded-lg p-3 h-12 w-full border-2 border-primary my-6"
               placeholder="Enter email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
             <input
               type="password"
               className="rounded-lg p-3 h-12 w-full border-2 border-primary mb-6"
               placeholder="Enter password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </div>
           <p className="text-primary">Forgot Password?</p>
-          <PrimaryButton
-            text="Login"
-            size="medium"
-            handleClick={() => setToken(123)}
-          />
+          <PrimaryButton text="Login" size="medium" handleClick={onSubmit} />
         </div>
       </div>
     </>
