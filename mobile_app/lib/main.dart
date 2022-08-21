@@ -1,14 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_user_app/components/service_locator.dart';
 import 'package:sih_user_app/screens/complaint/complaint_screen.dart';
 import 'package:sih_user_app/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import './l10n/codegen_loader.g.dart';
 
-void main() async {
+Future<void> main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    path: 'assets/l10n',
+    supportedLocales: const [
+      Locale('en'),
+      Locale('hi'),
+    ],
+    fallbackLocale: const Locale('hi'),
+    assetLoader: const CodegenLoader(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +30,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
