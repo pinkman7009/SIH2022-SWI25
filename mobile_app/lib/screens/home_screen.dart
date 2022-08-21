@@ -15,6 +15,8 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:sih_user_app/models/Choice.dart';
 import 'package:sih_user_app/components/location.dart';
 import 'package:geopoint_location/geopoint_location.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../l10n/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "/dashboard";
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           centerTitle: true,
           title: Text(
-            'Dashboard',
+            LocaleKeys.dashboard.tr(),
             style: TextStyle(
               color: Colors.black,
             ),
@@ -71,9 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.logout),
               color: Colors.black,
-              onPressed: () async {
-                
-              },
+              onPressed: () async {},
             )
           ],
         ),
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text(
-                          "Announcements",
+                          LocaleKeys.announcement.tr(),
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text(
-                          "Complaint History",
+                          LocaleKeys.announcement.tr(),
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text(
-                          "Help",
+                          LocaleKeys.help.tr(),
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -200,7 +200,65 @@ class _HomeScreenState extends State<HomeScreen> {
                       title: Padding(
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text(
-                          "About",
+                          LocaleKeys.about.tr(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        CupertinoIcons.info,
+                        color: Colors.blueGrey,
+                        size: 20.0,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "English",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () async {
+                        await context.setLocale(Locale('en'));
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        CupertinoIcons.info,
+                        color: Colors.blueGrey,
+                        size: 20.0,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Hindi",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      onTap: () async {
+                        await context.setLocale(Locale('hi'));
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        CupertinoIcons.info,
+                        color: Colors.blueGrey,
+                        size: 20.0,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "Bengali",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
@@ -218,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: Padding(
                           padding: const EdgeInsets.only(left: 15.0),
                           child: Text(
-                            "Logout",
+                            LocaleKeys.logout.tr(),
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -304,15 +362,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 CupertinoIcons.home,
               ),
             ),
-
             BottomNavigationBarItem(
               label: "Help",
               icon: Icon(
                 CupertinoIcons.phone,
               ),
             ),
-
-
           ],
         ),
         body: SingleChildScrollView(
@@ -359,7 +414,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PostComplaintScreen(address: address,),
+                      builder: (context) => PostComplaintScreen(
+                        address: address,
+                      ),
                     ),
                   );
                 },
@@ -397,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).size.width * 0.5,
                                   ),
                                   child: Text(
-                                    'Post Complaint',
+                                    LocaleKeys.post_complaint.tr(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
@@ -429,13 +486,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => CheckStatusScreen(),
-                  //   ),
-                  // );
+                onTap: () async {
+                  await context.setLocale(Locale('hi'));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -471,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).size.width * 0.5,
                                   ),
                                   child: Text(
-                                    'TRACK STATUS',
+                                    LocaleKeys.track_status.tr(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
