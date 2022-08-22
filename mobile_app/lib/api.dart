@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class APIModel{
   final String userName;
@@ -46,6 +48,8 @@ class APIModel{
 
     String json =
         '{"reportersName":"$userName","reportersNumber":"$userPhoneNumber","reportingLocation":"$childLocation","description":"$stateDescription","photo":"$photoURL", "severity":"$severity", "name":"$childName", "lat":"$latitude", "long":"$longitude"}';
+
+    print(json);
 
     final response = await http.post(uri, body: json, headers: headers);
     if (response.statusCode == 200) {

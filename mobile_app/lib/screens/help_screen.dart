@@ -39,7 +39,10 @@ class _HelpScreenState extends State<HelpScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_outlined),
           color: Colors.black,
-          onPressed: () => Navigator.popAndPushNamed(context, '/dashboard'),
+          onPressed: () => Navigator.pushReplacement(
+            context,
+            PageTransition(child: HomeScreen(), type: PageTransitionType.fade)
+          ),
         ),
         title: Text(
           'Indian Helpline Services',
@@ -64,8 +67,10 @@ class _HelpScreenState extends State<HelpScreen> {
             searchList: helpline_services,
             searchQueryBuilder: (query, list) {
               return list
-                  .where((item) =>
-                  item.toString().toLowerCase().contains(query.toLowerCase()))
+                  .where((item) => item
+                      .toString()
+                      .toLowerCase()
+                      .contains(query.toLowerCase()))
                   .toList();
             },
             overlaySearchListItemBuilder: (item) {
@@ -119,7 +124,6 @@ class _HelpScreenState extends State<HelpScreen> {
               CupertinoIcons.home,
             ),
           ),
-
           BottomNavigationBarItem(
             label: "Help",
             icon: Icon(

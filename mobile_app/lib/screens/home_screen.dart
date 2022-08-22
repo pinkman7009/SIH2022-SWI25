@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late GeoPoint myGeoPoint;
 
-  late String address;
+  late String address = "";
 
   fetchMeTheCoordinates() async {
     myGeoPoint = (await location.getMyCurrentLocation())!;
@@ -70,11 +70,34 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.logout),
-              color: Colors.black,
-              onPressed: () async {},
-            )
+            PopupMenuButton(
+                icon: Icon(Icons.translate, color: Colors.black),
+                itemBuilder: (context){
+                  return [
+                    PopupMenuItem<int>(
+                      value: 0,
+                      child: Text("English"),
+                    ),
+                    PopupMenuItem<int>(
+                      value: 1,
+                      child: Text("Hindi"),
+                    ),
+                    PopupMenuItem<int>(
+                      value: 2,
+                      child: Text("Bengali"),
+                    ),
+                  ];
+                },
+                onSelected:(value) async {
+                  if(value == 0){
+                    await context.setLocale(Locale('en'));
+                  }else if(value == 1){
+                    await context.setLocale(Locale('hi'));
+                  }else if(value == 2){
+                    print("Bengali");
+                  }
+                }
+            ),
           ],
         ),
         drawer: SizedBox(
@@ -94,18 +117,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: CircleAvatar(
                         backgroundColor: Colors.white,
                         backgroundImage: AssetImage('assets/images/logo.png'),
-                        radius: 10.0,
+                        radius: 20.0,
                       ),
                     ),
                     Text(
-                      'Welcome to',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        letterSpacing: 1.7,
-                      ),
-                    ),
-                    Text(
-                      'CLTS',
+                      'Child Labor \nTracking System',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 15.0,
@@ -115,31 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(
                       height: 15.0,
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        CupertinoIcons.bell,
-                        color: Colors.blueGrey,
-                        size: 21.0,
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          LocaleKeys.announcement.tr(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => AnnouncementsScreen(),
-                        //   ),
-                        // );
-                      },
                     ),
                     ListTile(
                       leading: Icon(
@@ -157,14 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => GrievanceHistory(),
-                        //   ),
-                        // );
-                      },
+                      onTap: () {},
                     ),
                     ListTile(
                       leading: Icon(
@@ -201,64 +185,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: Text(
                           LocaleKeys.about.tr(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        CupertinoIcons.info,
-                        color: Colors.blueGrey,
-                        size: 20.0,
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "English",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      onTap: () async {
-                        await context.setLocale(Locale('en'));
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        CupertinoIcons.info,
-                        color: Colors.blueGrey,
-                        size: 20.0,
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "Hindi",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      onTap: () async {
-                        await context.setLocale(Locale('hi'));
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        CupertinoIcons.info,
-                        color: Colors.blueGrey,
-                        size: 20.0,
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "Bengali",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,

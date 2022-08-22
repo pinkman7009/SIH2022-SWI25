@@ -34,7 +34,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   rounded_loading_button: ^2.1.0
-  location: ^4.3.0
+  location: ^4.4.0
   platform_alert_dialog: ^1.0.0+2
   geocode: ^1.0.1
   geopoint_location: ^0.4.0
@@ -50,6 +50,7 @@ dependencies:
   vibration: ^1.7.3
   http: ^0.13.4
   easy_localization: ^3.0.0
+  animated_button: ^0.2.0
 
 
 dev_dependencies:
@@ -80,6 +81,7 @@ flutter:
     - assets/images/
     - assets/helpline/
     - assets/l10n/
+    - assets/fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -93,17 +95,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Medium.ttf
+
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -32,9 +32,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       supportedLocales: context.supportedLocales,
       localizationsDelegates: context.localizationDelegates,
+      debugShowCheckedModeBanner: false,
       locale: context.locale,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Raleway',
+        primarySwatch: Colors.teal,
       ),
       home: SplashScreen(),
     );
