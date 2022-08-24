@@ -21,8 +21,7 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}`,
-        { status: "Accepted" },
+        `${process.env.REACT_APP_API_URL}/report/${_id}?status=Accepted`,
         { headers }
       );
 
@@ -40,8 +39,7 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}`,
-        { status: "Denied" },
+        `${process.env.REACT_APP_API_URL}/report/${_id}?status=Denied`,
         { headers }
       );
 

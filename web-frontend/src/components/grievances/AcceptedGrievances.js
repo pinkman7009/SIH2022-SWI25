@@ -5,9 +5,9 @@ import { fetchGrievances } from "../../store/actions/grievanceAction";
 
 const AcceptedGrievances = () => {
   const dispatch = useDispatch();
-  let grievances = useSelector((state) => state.grievances.reports);
+  let grievances = useSelector((state) => state.grievances);
   useEffect(() => {
-    if (!grievances) dispatch(fetchGrievances());
+    dispatch(fetchGrievances());
   }, []);
 
   grievances = grievances.filter((item) => item.status === "Accepted");
