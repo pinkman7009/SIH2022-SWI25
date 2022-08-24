@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { AddButton } from "../Buttons";
-import Map from "../Map";
 import Charts from "./Charts";
 import numberSvg from "../../assets/mark.svg";
 import personSvg from "../../assets/person.svg";
 import grievanceSvg from "../../assets/underperform.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";
+import DashboardMap from "../DashboardMap";
 
 const DashboardSection = () => {
   const grievances = useSelector((state) => state.grievances.reports);
@@ -74,7 +74,7 @@ const DashboardSection = () => {
       <h3 className="text-2xl text-primary text-center">
         Locations of registered children
       </h3>
-      <Map />
+      <DashboardMap />
     </div>
   );
 };
