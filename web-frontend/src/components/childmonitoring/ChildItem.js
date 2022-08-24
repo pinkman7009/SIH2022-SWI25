@@ -36,7 +36,7 @@ const ChildItem = ({ child }) => {
         </div>
       </div>
       <div className="absolute bottom-5 right-5">
-        <Link to="/childmonitoring/childdetails/1">
+        <Link to={`/childmonitoring/childdetails/${_id}`}>
           <PrimaryButton text="Details" />
         </Link>
       </div>

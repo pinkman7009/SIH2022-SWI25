@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ChildItem from "./ChildItem";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchChildren } from "../../store/actions/childAction";
+
 const ChildList = () => {
   const dispatch = useDispatch();
   const children = useSelector((state) => state.children.children);
@@ -9,8 +10,6 @@ const ChildList = () => {
   useEffect(() => {
     dispatch(fetchChildren());
   }, []);
-
-  console.log({ children });
 
   return (
     <div className="w-4/5 mx-auto">
