@@ -5,8 +5,8 @@ import LocationPin from "./LocationPin";
 const Map = () => {
   const location = {
     address: "1600 Amphitheatre Parkway, Mountain View, california.",
-    lat: 37.42216,
-    lng: -122.08427,
+    lat: 23.794149,
+    lng: 86.425957,
   };
   return (
     <div className="map">
