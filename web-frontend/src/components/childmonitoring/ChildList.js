@@ -5,7 +5,7 @@ import { fetchChildren } from "../../store/actions/childAction";
 
 const ChildList = () => {
   const dispatch = useDispatch();
-  const children = useSelector((state) => state.children.children);
+  const children = useSelector((state) => state.children);
 
   useEffect(() => {
     dispatch(fetchChildren());
