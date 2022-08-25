@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";
 
 const GrievanceItem = ({ grievance, pending }) => {
-  const { _id, name, description, photo } = grievance;
+  const { _id, name, description, photo, reportId } = grievance;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,11 +21,11 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}?status=Accepted`,
+        `${process.env.REACT_APP_API_URL}/report/${reportId}?status=Accepted`,
         { headers }
       );
 
-      navigate("/grievances/accepted");
+      navigate(`/childmonitoring/childdetails/${reportId}`);
     } catch (error) {
       console.log({ error });
     }
@@ -39,7 +39,7 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}?status=Denied`,
+        `${process.env.REACT_APP_API_URL}/report/${reportId}?status=Denied`,
         { headers }
       );
 

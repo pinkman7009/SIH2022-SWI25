@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -77,6 +77,8 @@ const Charts = ({ stats }) => {
   const pieStats = computePieStats(stats);
   const chartStats = computeChartStats(stats);
 
+  const [loading, setLoading] = useState(true);
+
   const [chartData, setChartData] = useState({
     labels: [
       "January",
@@ -106,7 +108,7 @@ const Charts = ({ stats }) => {
   });
 
   const [pieData, setPieData] = useState({
-    labels: pieStats.pieRange,
+    labels: Object.keys(stats.childrenAge),
     datasets: [
       {
         label: "Age of children registered",
@@ -131,9 +133,21 @@ const Charts = ({ stats }) => {
       },
     ],
   });
+
+  useEffect(() => {
+    if (stats.length > 0) {
+      setLoading(false);
+    }
+  }, []);
+
   return (
-    <div className="w-full h-[500px] border-primary rounded-md p-3 flex items-center justify-evenly">
-      <div className="w-1/2">
+    <div
+      className={`w-full h-[500px]border-primary rounded-md p-3 flex items-center justify-evenly`}
+    >
+      <div
+        className={`w-1/2
+      `}
+      >
         <Line
           data={chartData}
           options={{
@@ -142,7 +156,7 @@ const Charts = ({ stats }) => {
         />
       </div>
 
-      <div className="w-1/4">
+      <div className={`w-1/4`}>
         <h3>Age of Children Registered</h3>
         <Doughnut data={pieData} />;
       </div>

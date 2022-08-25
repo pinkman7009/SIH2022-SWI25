@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import GrievanceList from "./GrievanceList";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";

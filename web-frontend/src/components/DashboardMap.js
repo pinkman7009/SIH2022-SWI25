@@ -14,8 +14,8 @@ const DashboardMap = ({ acceptedGrievances }) => {
   return (
     <MapContainer
       style={{ height: "50vh" }}
-      center={[23.512, 80.329]}
-      zoom={4}
+      center={[23.7957, 86.4304]}
+      zoom={13}
       scrollWheelZoom={false}
     >
       <TileLayer
