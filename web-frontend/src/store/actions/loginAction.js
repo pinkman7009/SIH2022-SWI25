@@ -13,7 +13,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const res = await axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/login`,
+      `${process.env.REACT_APP_API_URL}/user/login`,
       form,
       { headers }
     );
