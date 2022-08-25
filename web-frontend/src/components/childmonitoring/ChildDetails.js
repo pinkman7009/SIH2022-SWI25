@@ -38,7 +38,9 @@ const ChildDetails = () => {
       <div className="border-b-2 border-gray-400 w-1/4"></div>
       <GeneralProfile child={child} />
 
-      <CheckpointsTable />
+      <CheckpointsTable tableName={"Objective"} />
+      <CheckpointsTable tableName={"Educational"} />
+      <CheckpointsTable tableName={"Medical"} />
     </div>
   );
 };
