@@ -51,6 +51,7 @@ dependencies:
   http: ^0.13.4
   easy_localization: ^3.0.0
   animated_button: ^0.2.0
+  firebase_auth: ^3.4.2
 
 
 dev_dependencies:

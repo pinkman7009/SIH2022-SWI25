@@ -24,9 +24,10 @@ import 'package:sih_user_app/screens/home_screen.dart';
 import 'package:vibration/vibration.dart';
 import 'package:sih_user_app/api.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../config.dart';
-
+import '';
 
 // import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:geocoder/geocoder.dart';
@@ -56,12 +57,13 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
 
   late String userName;
   late String userPhoneNumber;
-
+  late String userOTP;
   late String childName;
   late String stateDescription = "";
 
   late double latitude;
   late double longitude;
+  late String pincode;
 
   // String landmark;
   // String desc;
@@ -92,6 +94,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   final RoundedLoadingButtonController _btnSeverityRedressalController =
       new RoundedLoadingButtonController();
 
+  final otp_text_controller = TextEditingController();
   _openCamera(BuildContext context) async {
     var picture = await picker.pickImage(source: ImageSource.camera);
     flag == 1
@@ -123,6 +126,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
     setState(() {
       latitude = myGeoPoint.latitude;
       longitude = myGeoPoint.longitude;
+      pincode = myGeoPoint.postalCode;
     });
   }
 
@@ -226,9 +230,9 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
   }
 
   List<Choice> choices = <Choice>[
-    Choice(title: 'Your Details', icon: Icons.account_circle_outlined),
     Choice(title: 'Child Details', icon: Icons.child_care_sharp),
     Choice(title: 'Upload', icon: CupertinoIcons.camera),
+    Choice(title: 'Your Details', icon: Icons.account_circle_outlined),
   ];
 
   @override
@@ -281,76 +285,8 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
             },
             body: TabBarView(
               children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        onChanged: (value) {
-                          userName = value;
-                        },
-                        // initialValue: "userData.name",
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: "Name",
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blueGrey,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 18),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        onChanged: (value) {
-                          userPhoneNumber = value;
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: "Phone Number",
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blueGrey,
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 18),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                            borderSide: BorderSide(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(
-                              color: Color(0xFF757575),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 SingleChildScrollView(
+                  //child details
                   child: Column(
                     children: [
                       SizedBox(height: 20.0),
@@ -638,7 +574,8 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                             ),
                             RoundedLoadingButton(
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(15.0,8.0,15.0,8.0),
+                                  padding: const EdgeInsets.fromLTRB(
+                                      15.0, 8.0, 15.0, 8.0),
                                   child: Text(
                                     'Severity Redressal Value',
                                     style: TextStyle(
@@ -668,31 +605,27 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Category Classification",
-                              style: TextStyle(
-                                fontSize: 22.0,
-                              )
-                            ),
+                            Text("Category Classification",
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                )),
                           ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(10.0,0.0,10.0,20.0),
-                        child: Container(
-                          constraints: BoxConstraints(
-                            minWidth: MediaQuery.of(context).size.width,
-                          ),
-                          child: Text(
-                              "AI powered category classification enables us to effectively categorize your complaint leading to faster and efficient case tracking.",
-                              style: TextStyle(
-                                  fontSize: 12.5,
-                                  color: Colors.grey,
-                                  fontFamily: "NotoSans"
-                              )
-                          ),
-                        )
-                      ),
+                          padding:
+                              const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              minWidth: MediaQuery.of(context).size.width,
+                            ),
+                            child: Text(
+                                "AI powered category classification enables us to effectively categorize your complaint leading to faster and efficient case tracking.",
+                                style: TextStyle(
+                                    fontSize: 12.5,
+                                    color: Colors.grey,
+                                    fontFamily: "NotoSans")),
+                          )),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
@@ -705,7 +638,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                             decoration: InputDecoration(
                               labelText: 'Predicted Category',
                               labelStyle:
-                              TextStyle(fontWeight: FontWeight.w500),
+                                  TextStyle(fontWeight: FontWeight.w500),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
@@ -720,15 +653,14 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                                 Tooltip(
                                   child: const IconButton(
                                     padding: EdgeInsets.all(0),
-                                    icon: Icon(
-                                        Icons.info
-                                    ),
+                                    icon: Icon(Icons.info),
                                     onPressed: null,
                                   ),
                                   message: "$categoryTooltipMessage",
                                   padding: EdgeInsets.all(10),
                                   showDuration: const Duration(seconds: 10),
-                                  textStyle: const TextStyle(color: Colors.white),
+                                  textStyle:
+                                      const TextStyle(color: Colors.white),
                                   preferBelow: false,
                                   verticalOffset: 20,
                                 ),
@@ -742,16 +674,16 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                         child: ElevatedButton.icon(
                           icon: _isPredictButtonLoading
                               ? SizedBox(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                            height: 20.0,
-                            width: 20.0,
-                          )
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                  height: 20.0,
+                                  width: 20.0,
+                                )
                               : SizedBox(
-                            height: 0,
-                            width: 0,
-                          ),
+                                  height: 0,
+                                  width: 0,
+                                ),
                           label: Text(
                             _isPredictButtonLoading
                                 ? 'Loading...'
@@ -768,7 +700,10 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                             predictComplaintCategory();
                           },
                           style: ButtonStyle(
-                            fixedSize: MaterialStateProperty.all<Size>(new Size(MediaQuery.of(context).size.width*0.60, 50.0)),
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  new Size(
+                                      MediaQuery.of(context).size.width * 0.60,
+                                      50.0)),
                               backgroundColor:
                                   MaterialStateProperty.all<Color>(Colors.teal),
                               padding: MaterialStateProperty.all<
@@ -805,15 +740,29 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                   ),
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "Add child's photo here",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 26,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: 15.0),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             GestureDetector(
                               onTap: () {
@@ -824,7 +773,11 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                               },
                               child: Container(
                                 constraints: BoxConstraints(
-                                    maxHeight: 340.0, maxWidth: 265.0),
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.6,
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
@@ -837,7 +790,7 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                                   padding: const EdgeInsets.all(5.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
                                       child: sampleUrlImg == ""
@@ -845,13 +798,27 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                                               image: AssetImage(
                                                 'assets/images/upload.png',
                                               ),
-                                              height: 340.0,
-                                              width: 265.0,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5,
+                                              // height: 340.0,
+                                              // width: 265.0,
                                             )
                                           : Image.file(
                                               imageFile1,
-                                              height: 340.0,
-                                              width: 265.0,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.9,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.9,
                                               fit: BoxFit.fill,
                                             ),
                                     ),
@@ -862,6 +829,113 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                           ],
                         ),
                       ],
+                    ),
+                  ],
+                ),
+                Column(
+                  //your details
+                  children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          userName = value;
+                        },
+                        // initialValue: "userData.name",
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Name",
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blueGrey,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 18),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          userPhoneNumber = value;
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Phone Number",
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blueGrey,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 18),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                        onChanged: (value) {
+                          userOTP = value;
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: "Please enter OTP",
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blueGrey,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 18),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFF757575),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        verifyPhone();
+                      },
+                      child: Text("Verify otp"),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -927,15 +1001,17 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
                                 Vibration.vibrate();
 
                                 APIModel apiModel = new APIModel(
-                                    userName,
-                                    userPhoneNumber,
-                                    childName,
-                                    widget.address,
-                                    latitude.toString(),
-                                    longitude.toString(),
-                                    severityValue,
-                                    stateDescription,
-                                    imageUrl1);
+                                  userName,
+                                  userPhoneNumber,
+                                  childName,
+                                  widget.address,
+                                  latitude.toString(),
+                                  longitude.toString(),
+                                  severityValue,
+                                  stateDescription,
+                                  imageUrl1,
+                                  pincode,
+                                );
                                 apiModel.postComplaintToDB();
                                 _btnController.success();
 
@@ -1067,6 +1143,26 @@ class _PostGrievanceScreenState extends State<PostComplaintScreen> {
       });
     }
   }
+
+  void verifyPhone() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+919330159182',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        print('success');
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: userOTP);
+
+        // Sign the user in (or link) with the credential
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
 }
-
-

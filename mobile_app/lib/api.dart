@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class APIModel{
+class APIModel {
   final String userName;
   late final String userPhoneNumber;
   final String childName;
@@ -15,16 +15,27 @@ class APIModel{
   final String severity;
   final String stateDescription;
   final String photoURL;
+  final String pincode;
 
-  APIModel(this.userName, this.userPhoneNumber, this.childName,
-      this.childLocation, this.latitude, this.longitude, this.severity, this.stateDescription, this.photoURL);
+  APIModel(
+      this.userName,
+      this.userPhoneNumber,
+      this.childName,
+      this.childLocation,
+      this.latitude,
+      this.longitude,
+      this.severity,
+      this.stateDescription,
+      this.photoURL,
+      this.pincode);
 
   Future<String> getSeverityLevel() async {
     String baseURL = "child-abuse-sih.herokuapp.com";
     String predictEndpoint = "/predict";
     String stateDescription = this.stateDescription;
 
-    var uri = Uri.http(baseURL, predictEndpoint, {"sentence":"$stateDescription"});
+    var uri =
+        Uri.http(baseURL, predictEndpoint, {"sentence": "$stateDescription"});
     final response = await http.get(uri);
     print(response.statusCode);
 
@@ -35,7 +46,7 @@ class APIModel{
   }
 
   postComplaintToDB() async {
-    String baseURL = "cltssih.herokuapp.com";
+    String baseURL = "c77d-103-93-250-20.ngrok.io";
     String reportEndpoint = "/api/report/";
     // Uri url = Uri.https(baseURL, reportEndpoint);
 
@@ -47,7 +58,7 @@ class APIModel{
     DateTime dateTime = DateTime.now();
 
     String json =
-        '{"reportersName":"$userName","reportersNumber":"$userPhoneNumber","reportingLocation":"$childLocation","description":"$stateDescription","photo":"$photoURL", "severity":"$severity", "name":"$childName", "lat":"$latitude", "long":"$longitude"}';
+        '{"reportersName":"$userName","reportersNumber":"$userPhoneNumber","reportingLocation":"$childLocation","description":"$stateDescription","photo":"$photoURL", "severity":"$severity", "name":"$childName", "lat":"$latitude", "long":"$longitude" ,"pincode":"$pincode"}';
 
     print(json);
 

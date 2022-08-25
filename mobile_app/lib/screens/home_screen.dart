@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sih_user_app/components/service_locator.dart';
 import 'package:sih_user_app/screens/complaint/complaint_screen.dart';
 import 'package:sih_user_app/screens/help_screen.dart';
 import 'dart:async';
@@ -16,6 +17,7 @@ import 'package:sih_user_app/models/Choice.dart';
 import 'package:sih_user_app/components/location.dart';
 import 'package:geopoint_location/geopoint_location.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../components/calls_and_messages.dart';
 import '../l10n/locale_keys.g.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,9 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late String address = "";
 
+  final CallsAndMessagesService _service = locator<CallsAndMessagesService>();
+
   fetchMeTheCoordinates() async {
     myGeoPoint = (await location.getMyCurrentLocation())!;
-    // print(myGeoPoint.address);
+    print(myGeoPoint.address);
     setState(() {
       address = myGeoPoint.address;
     });
@@ -72,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             PopupMenuButton(
                 icon: Icon(Icons.translate, color: Colors.black),
-                itemBuilder: (context){
+                itemBuilder: (context) {
                   return [
                     PopupMenuItem<int>(
                       value: 0,
@@ -88,16 +92,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ];
                 },
-                onSelected:(value) async {
-                  if(value == 0){
+                onSelected: (value) async {
+                  if (value == 0) {
                     await context.setLocale(Locale('en'));
-                  }else if(value == 1){
+                  } else if (value == 1) {
                     await context.setLocale(Locale('hi'));
-                  }else if(value == 2){
+                  } else if (value == 2) {
                     print("Bengali");
                   }
-                }
-            ),
+                }),
           ],
         ),
         drawer: SizedBox(
@@ -547,6 +550,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _service.call('112');
+          },
+          backgroundColor: Colors.red,
+          child: const Text('Panic'),
         ),
       ),
     );
