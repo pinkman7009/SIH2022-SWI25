@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { fetchChild } from "../../store/actions/childAction";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
+import AdditionalDetails from "./AdditionalDetails";
 
 const ChildDetails = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const ChildDetails = () => {
           },
         ]}
       />
+      <AdditionalDetails />
     </div>
   );
 };
