@@ -12,6 +12,7 @@ export const fetchGrievances = () => async (dispatch) => {
 
 export const fetchGrievanceFromId = (id) => async (dispatch) => {
   try {
+    console.log({ id });
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/report/${id}`
     );

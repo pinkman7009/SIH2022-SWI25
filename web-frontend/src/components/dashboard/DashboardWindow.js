@@ -10,9 +10,9 @@ import ChildDetails from "../childmonitoring/ChildDetails";
 
 const DashboardWindow = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    navigate("/");
-  }, []);
+  // useEffect(() => {
+  //   navigate("/");
+  // }, []);
   return (
     <div className="w-5/6 absolute top-0 right-0 mx-0 my-auto">
       <TopNavbar isLoggedIn={true} />

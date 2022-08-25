@@ -2,41 +2,38 @@ import React, { useState, useEffect } from "react";
 import GeneralProfile from "./GeneralProfile";
 import ChildMonitoring from "./ChildMonitoring";
 import CheckpointsTable from "./CheckpointsTable";
-import { useDispatch } from "react-redux";
-import { fetchChild } from "../../store/actions/childAction";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
+import { fetchGrievanceFromId } from "../../store/actions/grievanceAction";
+import InspectionTable from "./InspectionTable";
 
 const ChildDetails = () => {
   const dispatch = useDispatch();
-  const { _id } = useParams();
+  const { id } = useParams();
 
-  const [child, setChild] = useState({});
-  const [loading, setLoading] = useState(true);
+  const reports = useSelector((state) => state.grievances);
+
+  const [preRescueDetails, setPreRescueDetails] = useState([
+    "Rescue team has been sent",
+    "",
+    "",
+    "",
+  ]);
+
+  const [postRescueDetails, setPostRescueDetails] = useState(["", "", "", ""]);
 
   useEffect(() => {
-    const getChild = async () => {
-      const data = await dispatch(fetchChild(_id));
-
-      setChild(data[0]);
-
-      setLoading(false);
-    };
-
-    if (_id) getChild();
+    dispatch(fetchGrievanceFromId(id));
   }, []);
 
-  // if (Object.keys(child).length === 0) {
-  //   return <Loader />;
-  // }
-
-  console.log({ child });
+  console.log({ reports });
 
   return (
     <div className="p-6">
       <h3 className="text-[1.5rem]">Child Details</h3>
       <div className="border-b-2 border-gray-400 w-1/4"></div>
-      <GeneralProfile child={child} />
+      {reports.length > 0 ? <GeneralProfile report={reports} /> : null}
 
       <CheckpointsTable
         tableName={"Pre Rescue"}
@@ -44,22 +41,26 @@ const ChildDetails = () => {
           {
             key: 1,
             state: "Send rescue team",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: preRescueDetails[0],
           },
           {
             key: 2,
             state: "Evidence collection",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: preRescueDetails[1],
           },
           {
             key: 3,
             state: "Age Verification",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: preRescueDetails[2],
           },
           {
             key: 4,
             state: "Immediate Aid",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: preRescueDetails[3],
           },
         ]}
       />
@@ -69,20 +70,24 @@ const ChildDetails = () => {
           {
             key: 1,
             state: "Register FIR",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: postRescueDetails[0],
           },
           {
             key: 2,
             state: "Conduct Medical Examination",
-            remarks: "First complete the previous task",
+            processedOn: "",
+            remarks: postRescueDetails[1],
           },
           {
             key: 3,
-            state: "Counselling and vocational Training",
-            remarks: "First complete the previous task",
+            state: "Counselling and Vocational Training",
+            processedOn: "",
+            remarks: postRescueDetails[2],
           },
         ]}
       />
+      <InspectionTable />
     </div>
   );
 };
