@@ -72,18 +72,24 @@ const ChildDetails = () => {
         rows={[
           {
             key: 1,
-            state: "Register FIR",
+            state: "Preliminary Child Information",
             processedOn: "",
             remarks: postRescueDetails[0],
           },
           {
             key: 2,
+            state: "Register FIR",
+            processedOn: "",
+            remarks: postRescueDetails[0],
+          },
+          {
+            key: 3,
             state: "Conduct Medical Examination",
             processedOn: "",
             remarks: postRescueDetails[1],
           },
           {
-            key: 3,
+            key: 4,
             state: "Counselling and Vocational Training",
             processedOn: "",
             remarks: postRescueDetails[2],

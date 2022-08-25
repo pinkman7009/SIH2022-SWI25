@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import PendingGrievances from "../grievances/PendingGrievances";
+import PendingApprovals from "../approvals/PendingApprovals";
 import AcceptedGrievances from "../grievances/AcceptedGrievances";
 import TopNavbar from "../TopNavbar";
 import DashboardSection from "./DashboardSection";
@@ -23,6 +24,11 @@ const DashboardWindow = () => {
             exact
             path="/grievances/pending"
             element={<PendingGrievances />}
+          />
+          <Route
+            exact
+            path="/approvals/pending"
+            element={<PendingApprovals />}
           />
           <Route
             exact

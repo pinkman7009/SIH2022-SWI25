@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { FaEdit } from "react-icons/fa";
+import { PrimaryButton } from "../Buttons";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,9 +32,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables({ tableName, rows }) {
-  console.log({ tableName, rows });
   const [firstEmptyField, setFirstEmptyField] = useState({});
   const [editForm, setEditForm] = useState(null);
+
+  const navigate = useNavigate();
 
   const onSave = (e) => {
     e.preventDefault();
@@ -57,10 +60,11 @@ export default function CustomizedTables({ tableName, rows }) {
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">Objectives</StyledTableCell>
-              <StyledTableCell align="center">Remarks</StyledTableCell>
+              <StyledTableCell align="center">Approver</StyledTableCell>
               <StyledTableCell align="center">Updated On</StyledTableCell>
               <StyledTableCell align="center">Status</StyledTableCell>
               <StyledTableCell align="center">Action</StyledTableCell>
+              <StyledTableCell align="center">Remarks</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,6 +72,47 @@ export default function CustomizedTables({ tableName, rows }) {
               <StyledTableRow key={row.key}>
                 <StyledTableCell align="center">
                   <p className="font-bold">{row.state}</p>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <select
+                    id="family-type"
+                    className="py-2 px-8 outline-primary"
+                  >
+                    <option value="volvo">Orphan</option>
+                    <option value="saab">Nuclear</option>
+                    <option value="opel">Joint</option>
+                    <option value="audi">Extented</option>
+                  </select>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <p className="font-bold">{row.processedOn}</p>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.remarks !== "" ? (
+                    <p className="font-bold">Completed</p>
+                  ) : (
+                    <p className="font-bold">Pending</p>
+                  )}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.key === 1 && tableName === "Post Rescue" ? (
+                    <div className="flex justify-center items-center">
+                      <PrimaryButton
+                        text="Add Data"
+                        handleClick={() =>
+                          navigate("/childmonitoring/addchild")
+                        }
+                      />
+                    </div>
+                  ) : row.remarks !== "" ? (
+                    <div className="flex justify-center items-center">
+                      <PrimaryButton text="Download" />
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center">
+                      <PrimaryButton text="Request for Approval" />
+                    </div>
+                  )}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {(tableName === "Pre Rescue" &&
@@ -94,21 +139,6 @@ export default function CustomizedTables({ tableName, rows }) {
                   ) : (
                     <p className="font-bold"> {row.remarks}</p>
                   )}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <p className="font-bold">{row.processedOn}</p>
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.remarks !== "" ? (
-                    <p className="font-bold">Completed</p>
-                  ) : (
-                    <p className="font-bold">Pending</p>
-                  )}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  <div className="flex justify-center items-center">
-                    <FaEdit onClick={() => setEditForm(row.key)} />
-                  </div>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

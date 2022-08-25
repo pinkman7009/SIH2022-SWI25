@@ -3,9 +3,13 @@ import { PrimaryButton } from "../Buttons";
 import { FaUserAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ChildItem = ({ child }) => {
-  const { _id, name, phone, aadhaar, currentAddress } = child;
+  const { _id, name, phone, aadhaar, currentAddress, report } = child;
+  const navigate = useNavigate();
+
+  console.log({ child });
 
   return (
     <div className="border-2 border-primary shadow-xl rounded-xl p-6 flex w-full my-6 relative">
@@ -21,10 +25,10 @@ const ChildItem = ({ child }) => {
           <p className="ml-3 text-gray-400">#{_id}</p>
         </div>
         <div className="flex my-3">
-          <p className="text-gray-400 font-bold text-md mr-3">Phone No:</p>
-          <p>{phone}</p>
+          <p className="text-gray-400 font-bold text-md mr-3">Report ID:</p>
+          <p>{report.reportId}</p>
         </div>
-        <div className="flex my-3">
+        {/* <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Aadhaar No:</p>
           <p>{aadhaar}</p>
         </div>
@@ -33,11 +37,17 @@ const ChildItem = ({ child }) => {
             Current Residence
           </p>
           <p>{currentAddress}</p>
-        </div>
+        </div> */}
       </div>
       <div className="absolute bottom-5 right-5">
-        <Link to={`/childmonitoring/childdetails/${_id}`}>
-          <PrimaryButton text="Details" />
+        <Link to={`/childmonitoring/childdetails/${report.reportId}`}>
+          <PrimaryButton
+            size="large"
+            text="Add or Edit Details"
+            handleClick={() => {
+              navigate(`/childmonitoring/childdetails/${report.reportId}`);
+            }}
+          />
         </Link>
       </div>
     </div>

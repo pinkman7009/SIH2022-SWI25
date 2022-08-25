@@ -65,8 +65,13 @@ export default function InspectionTable() {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">Inspection Date</StyledTableCell>
-              <StyledTableCell align="center">Inspected By</StyledTableCell>
+              <StyledTableCell align="center">
+                Last Inspection Date
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                Next Inspection Date
+              </StyledTableCell>
+              <StyledTableCell align="center">Inspector</StyledTableCell>
               <StyledTableCell align="center">Details</StyledTableCell>
               <StyledTableCell align="center">Remarks</StyledTableCell>
             </TableRow>
@@ -75,8 +80,17 @@ export default function InspectionTable() {
             {inspections.map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell align="center">{row.date}</StyledTableCell>
+                <StyledTableCell align="center">{row.date}</StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.inspectedBy}
+                  <select
+                    id="family-type"
+                    className="py-2 px-8 outline-primary"
+                  >
+                    <option value="volvo">Orphan</option>
+                    <option value="saab">Nuclear</option>
+                    <option value="opel">Joint</option>
+                    <option value="audi">Extented</option>
+                  </select>
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.details}</StyledTableCell>
                 <StyledTableCell align="center">{row.remarks}</StyledTableCell>

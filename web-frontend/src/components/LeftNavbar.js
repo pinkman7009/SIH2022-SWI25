@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillCaretDown, AiFillDashboard } from "react-icons/ai";
 import { BiSad } from "react-icons/bi";
-import { FaChild, FaMapMarkerAlt } from "react-icons/fa";
+import { FaChild, FaMapMarkerAlt, FaRegClock } from "react-icons/fa";
 import NestedNav from "./NestedNav";
 
 const LeftNavbar = () => {
@@ -15,21 +15,17 @@ const LeftNavbar = () => {
         title: "Pending Grievances",
         route: "grievances/pending",
       },
-      {
-        title: "Accepted Grievances",
-        route: "grievances/accepted",
-      },
     ],
-    childMonitoring: [
-      {
-        title: "Child Database",
-        route: "childmonitoring/childdatabase",
-      },
-      {
-        title: "Add New Child",
-        route: "childmonitoring/addchild",
-      },
-    ],
+    // childMonitoring: [
+    //   {
+    //     title: "Child Database",
+    //     route: "childmonitoring/childdatabase",
+    //   },
+    //   {
+    //     title: "Add New Child",
+    //     route: "childmonitoring/addchild",
+    //   },
+    // ],
   };
 
   return (
@@ -50,24 +46,29 @@ const LeftNavbar = () => {
           </div>
         </NavLink>
 
-        <div>
-          <div
-            className="flex items-center justify-between transition-all p-3 cursor-pointer hover:bg-secondary"
-            onClick={() => setNestedGrievancelink(!nestedGrievancelink)}
-          >
-            <div className="flex items-center">
-              <BiSad />
-              <p className="ml-3"> Grievances</p>
-            </div>
-            <AiFillCaretDown />
+        <NavLink to="/grievances/pending" activeClassName="active">
+          <div className="flex items-center transition-all p-3 hover:bg-secondary">
+            <BiSad />
+            <p className="ml-3">Pending Reports</p>
           </div>
-          {nestedGrievancelink === true ? (
-            <NestedNav links={nestedlinks.grievances} />
-          ) : null}
-        </div>
+        </NavLink>
+
+        <NavLink to="/approvals/pending" activeClassName="active">
+          <div className="flex items-center transition-all p-3 hover:bg-secondary">
+            <FaRegClock />
+            <p className="ml-3">Pending Approvals</p>
+          </div>
+        </NavLink>
+
+        <NavLink to="/childmonitoring/childdatabase" activeClassName="active">
+          <div className="flex items-center transition-all p-3 hover:bg-secondary">
+            <FaChild />
+            <p className="ml-3">Child Database</p>
+          </div>
+        </NavLink>
 
         <div>
-          <div
+          {/* <div
             className="flex items-center justify-between transition-all p-3 cursor-pointer hover:bg-secondary"
             onClick={() => setNestedChildlink(!nestedChildlink)}
           >
@@ -76,11 +77,11 @@ const LeftNavbar = () => {
               <p className="ml-3">Child Monitoring</p>
             </div>
             <AiFillCaretDown />
-          </div>
+          </div> */}
 
-          {nestedChildlink === true ? (
+          {/* {nestedChildlink === true ? (
             <NestedNav links={nestedlinks.childMonitoring} />
-          ) : null}
+          ) : null} */}
         </div>
         <NavLink to="/entitlementzone" activeClassName="active">
           <div className="flex items-center transition-all p-3 hover:bg-secondary">

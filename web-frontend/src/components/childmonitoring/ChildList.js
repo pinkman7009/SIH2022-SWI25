@@ -7,6 +7,8 @@ const ChildList = () => {
   const dispatch = useDispatch();
   const children = useSelector((state) => state.children);
 
+  // console.log({ children });
+
   useEffect(() => {
     dispatch(fetchChildren());
   }, []);
