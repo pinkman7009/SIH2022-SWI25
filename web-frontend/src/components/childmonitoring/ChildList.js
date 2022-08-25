@@ -15,9 +15,13 @@ const ChildList = () => {
 
   return (
     <div className="w-4/5 mx-auto">
-      {children?.map((item) => (
-        <ChildItem key={item._id} child={item} />
-      ))}
+      {children.length === 0 ? (
+        <h2 className="text-lg font-bold my-3 border-2 rounded text-center p-3">
+          There are no pending reports
+        </h2>
+      ) : (
+        children?.map((item) => <ChildItem key={item._id} child={item} />)
+      )}
     </div>
   );
 };

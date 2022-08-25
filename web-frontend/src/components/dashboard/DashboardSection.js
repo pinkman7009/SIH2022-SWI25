@@ -39,10 +39,6 @@ const DashboardSection = () => {
           <h3 className="text-[1.5rem]">Dashboard</h3>
           <div className="border-b-2 border-gray-400 w-full"></div>
         </div>
-        <div className="w-1/5 flex justify-between items-center">
-          {/* <AddButton text="Add Grievance" /> */}
-          <AddButton text="Add Child" />
-        </div>
       </div>
       <div className="flex w-full my-6 mx-auto">
         <div className="shadow-xl rounded-lg p-6 w-1/3 bg-lightBlue h-40 m-6">
@@ -111,7 +107,7 @@ const DashboardSection = () => {
           </button>
         </div>
       )}
-      <h3 className="text-2xl text-primary text-center m-3 font-bold">
+      <h3 className="text-2xl text-primary text-center m-3 font-b">
         Locations of registered children
       </h3>
 

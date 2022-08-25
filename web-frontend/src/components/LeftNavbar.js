@@ -29,7 +29,7 @@ const LeftNavbar = () => {
   };
 
   return (
-    <div className="flex flex-col bg-primary top-0 fixed w-1/6 min-h-screen z-10 p-3 m-0 text-sm text-white">
+    <div className="flex flex-col bg-primary top-0 fixed w-1/6 min-h-screen z-10 p-3 m-0 text-sm text-white no-print">
       <div className="flex items-center">
         <img src="./logo.svg" alt="logo" className="h-16 w-16" />
         <div className="text-md">

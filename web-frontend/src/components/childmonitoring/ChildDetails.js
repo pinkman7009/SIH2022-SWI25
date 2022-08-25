@@ -10,6 +10,7 @@ import AdditionalDetails from "./AdditionalDetails";
 
 import { fetchGrievanceFromId } from "../../store/actions/grievanceAction";
 import InspectionTable from "./InspectionTable";
+import { PrimaryButton } from "../Buttons";
 
 const ChildDetails = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,6 @@ const ChildDetails = () => {
   useEffect(() => {
     dispatch(fetchGrievanceFromId(id));
   }, []);
-
-  console.log({ reports });
 
   return (
     <div className="p-6">
@@ -61,7 +60,7 @@ const ChildDetails = () => {
           },
           {
             key: 4,
-            state: "Immediate Aid",
+            state: "Rehabilitation Details",
             processedOn: "",
             remarks: preRescueDetails[3],
           },
@@ -98,6 +97,15 @@ const ChildDetails = () => {
       />
       <InspectionTable />
       <AdditionalDetails />
+
+      <div className="flex justify-center items-center">
+        <PrimaryButton
+          text="Print Report"
+          handleClick={() => {
+            window.print();
+          }}
+        />
+      </div>
     </div>
   );
 };

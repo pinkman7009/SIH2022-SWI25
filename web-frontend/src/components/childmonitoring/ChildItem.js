@@ -9,8 +9,6 @@ const ChildItem = ({ child }) => {
   const { _id, name, phone, aadhaar, currentAddress, report } = child;
   const navigate = useNavigate();
 
-  console.log({ child });
-
   return (
     <div className="border-2 border-primary shadow-xl rounded-xl p-6 flex w-full my-6 relative">
       <div className="h-32 w-32 bg-gray-400 p-6 rounded-full flex items-center justify-center">
@@ -26,7 +24,7 @@ const ChildItem = ({ child }) => {
         </div>
         <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Report ID:</p>
-          <p>{report.reportId}</p>
+          <p>{report?.reportId}</p>
         </div>
         {/* <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Aadhaar No:</p>

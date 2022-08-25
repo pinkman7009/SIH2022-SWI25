@@ -28,7 +28,7 @@ const AdditionalDetails = () => {
     return (
       <div className="100vh border-2 border-primary p-10 flex">
         <div className="flex flex-col justify-between gap-6">
-          <div>1. Family type of child</div>
+          <div>1. Family type </div>
           <div>2. Has the family migrated?</div>
           <div>3. Relationships among family members</div>
           <div>4. BPL Card Number:</div>
@@ -304,9 +304,9 @@ const AdditionalDetails = () => {
       <SocioContent />
       <h2 className="font-bold text-2xl my-3">Economical Details</h2>
       <EconomicContent />
-      <h2 className="font-bold text-2xl my-3">Educational Detials</h2>
+      <h2 className="font-bold text-2xl my-3">Educational Details</h2>
       <EducationContent />
-      <h2 className="font-bold text-2xl my-3">Health Detials</h2>
+      <h2 className="font-bold text-2xl my-3">Health Details</h2>
       <HealthContent />
     </div>
   );

@@ -8,7 +8,7 @@ const TopNavbar = ({ showLogo, isLoggedIn }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-primary w-full h-24 p-3 flex justify-center items-center text-lg text-white relative">
+    <div className="bg-primary w-full h-24 p-3 flex justify-center items-center text-lg text-white relative no-print">
       {showLogo && (
         <div className="flex items-center absolute top-3 left-2">
           <img src="./logo.svg" alt="logo" className="h-16 w-16" />
@@ -20,7 +20,7 @@ const TopNavbar = ({ showLogo, isLoggedIn }) => {
       )}
 
       <div>
-        <h2 className="text-center text-[1.7rem]">PENCIL</h2>
+        <h2 className="text-center text-[1.7rem]">PENCiL</h2>
       </div>
 
       {isLoggedIn === true ? (
