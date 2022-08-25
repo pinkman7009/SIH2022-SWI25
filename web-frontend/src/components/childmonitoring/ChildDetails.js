@@ -5,6 +5,9 @@ import CheckpointsTable from "./CheckpointsTable";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
+
+import AdditionalDetails from "./AdditionalDetails";
+
 import { fetchGrievanceFromId } from "../../store/actions/grievanceAction";
 import InspectionTable from "./InspectionTable";
 
@@ -88,6 +91,7 @@ const ChildDetails = () => {
         ]}
       />
       <InspectionTable />
+      <AdditionalDetails />
     </div>
   );
 };
