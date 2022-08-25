@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#1A2E47",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -28,45 +28,41 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, calories, fat, carbs, protein, val) {
+  return { name, calories, fat, carbs, protein, val };
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData(2, "Report Accepted", "Pending", 9.0, 37, 4.3),
+  createData(3, "Registered Child", "Pending", 16.0, 24, 6.0),
 ];
 
-export default function CustomizedTables() {
+export default function CustomizedTables({ tableName }) {
   return (
     <div className="m-6">
-      <h2 className="font-bold text-2xl my-3">Objective Time Table</h2>
+      <h2 className="font-bold text-2xl my-3">{tableName} Time Table</h2>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell align="right">Transaction Name</StyledTableCell>
-              <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Processed On</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
-              <StyledTableCell align="right">Linked Files</StyledTableCell>
+              <StyledTableCell align="center">ID</StyledTableCell>
+              <StyledTableCell align="center">Objective Name</StyledTableCell>
+              <StyledTableCell align="center">Status</StyledTableCell>
+              <StyledTableCell align="center">Processed On</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
+              <StyledTableCell align="center">Verification</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.calories}</StyledTableCell>
-                <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                <StyledTableCell align="center">{row.name}</StyledTableCell>
+                <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                <StyledTableCell align="center">{row.fat}</StyledTableCell>
+                <StyledTableCell align="center">{row.carbs}</StyledTableCell>
+                <StyledTableCell align="center">{row.protein}</StyledTableCell>
+                <StyledTableCell align="center">{row.val}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
