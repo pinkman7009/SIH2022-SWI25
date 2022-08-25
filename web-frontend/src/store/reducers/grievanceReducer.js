@@ -1,6 +1,6 @@
 import { GET_GRIEVANCES, GET_GRIEVANCES_BY_ID } from "../types";
 
-const grievanceReducer = (state = null, action) => {
+const grievanceReducer = (state = [], action) => {
   switch (action.type) {
     case GET_GRIEVANCES:
       return action.payload;

@@ -7,9 +7,13 @@ import grievanceSvg from "../../assets/underperform.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";
 import DashboardMap from "../DashboardMap";
+import { fetchStats } from "../../store/actions/dashboardAction";
+import { fetchChildren } from "../../store/actions/childAction";
 
 const DashboardSection = () => {
   const grievances = useSelector((state) => state.grievances);
+  const stats = useSelector((state) => state.statistics);
+  const children = useSelector((state) => state.children);
   const dispatch = useDispatch();
 
   const pendingGrievances = grievances?.filter(
@@ -18,11 +22,15 @@ const DashboardSection = () => {
 
   useEffect(() => {
     dispatch(fetchGrievances());
+    dispatch(fetchStats());
+    dispatch(fetchChildren());
   }, []);
 
   const acceptedGrievances = grievances.filter(
     (item) => item.status === "Accepted"
   );
+
+  console.log({ stats });
 
   return (
     <div className="p-6">
@@ -43,7 +51,7 @@ const DashboardSection = () => {
               <img src={numberSvg} alt="" />
             </div>
             <div>
-              <p className="text-2xl font-bold">62</p>
+              <p className="text-2xl font-bold">{children.length}</p>
               <p className="text-gray-500 mt-3">Number of Children</p>
             </div>
           </div>
@@ -74,7 +82,7 @@ const DashboardSection = () => {
         </div>
       </div>
 
-      <Charts />
+      {Object.keys(stats).length > 0 && <Charts stats={stats} />}
       <h3 className="text-2xl text-primary text-center">
         Locations of registered children
       </h3>
