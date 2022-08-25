@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../store/actions/loginAction";
 import { useDispatch } from "react-redux";
 
 const TopNavbar = ({ showLogo, isLoggedIn }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-primary w-full h-24 p-3 flex justify-center items-center text-lg text-white relative">
@@ -29,6 +30,7 @@ const TopNavbar = ({ showLogo, isLoggedIn }) => {
               className="absolute top-8 right-5"
               onClick={() => {
                 dispatch(logout());
+                navigate("login");
               }}
             >
               Logout
