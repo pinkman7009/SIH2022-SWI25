@@ -28,41 +28,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein, val) {
-  return { name, calories, fat, carbs, protein, val };
-}
-
-const rows = [
-  createData(2, "Report Accepted", "Pending", 9.0, 37, 4.3),
-  createData(3, "Registered Child", "Pending", 16.0, 24, 6.0),
-];
-
-export default function CustomizedTables({ tableName }) {
+export default function CustomizedTables({ tableName, rows }) {
   return (
     <div className="m-6">
-      <h2 className="font-bold text-2xl my-3">{tableName} Time Table</h2>
+      <h2 className="font-bold text-2xl my-3">{tableName}</h2>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">ID</StyledTableCell>
-              <StyledTableCell align="center">Objective Name</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
-              <StyledTableCell align="center">Processed On</StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
-              <StyledTableCell align="center">Verification</StyledTableCell>
+              <StyledTableCell align="center">States</StyledTableCell>
+              <StyledTableCell align="center">Remarks</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell align="center">{row.name}</StyledTableCell>
-                <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                <StyledTableCell align="center">{row.fat}</StyledTableCell>
-                <StyledTableCell align="center">{row.carbs}</StyledTableCell>
-                <StyledTableCell align="center">{row.protein}</StyledTableCell>
-                <StyledTableCell align="center">{row.val}</StyledTableCell>
+            {rows?.map((row) => (
+              <StyledTableRow key={row.key}>
+                <StyledTableCell align="center">{row.state}</StyledTableCell>
+                <StyledTableCell align="center">{row.remarks}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

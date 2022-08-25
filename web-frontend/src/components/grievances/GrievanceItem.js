@@ -25,7 +25,7 @@ const GrievanceItem = ({ grievance, pending }) => {
         { headers }
       );
 
-      navigate("/grievances/accepted");
+      navigate(`/childmonitoring/childdetails/${_id}`);
     } catch (error) {
       console.log({ error });
     }
