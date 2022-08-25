@@ -19,6 +19,7 @@ import 'package:geopoint_location/geopoint_location.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../components/calls_and_messages.dart';
 import '../l10n/locale_keys.g.dart';
+import '../l10n/codegen_loader.g.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "/dashboard";
@@ -86,10 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       value: 1,
                       child: Text("Hindi"),
                     ),
-                    PopupMenuItem<int>(
-                      value: 2,
-                      child: Text("Bengali"),
-                    ),
+                    PopupMenuItem<int>(value: 2, child: Text("Bengali")),
                   ];
                 },
                 onSelected: (value) async {
@@ -325,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       child: Text(
-                        '10 people are using CLTS to solve their grievances.',
+                        LocaleKeys.stats1.tr(),
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w600,
@@ -383,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).size.width * 0.5,
                                   ),
                                   child: Text(
-                                    LocaleKeys.post_complaint.tr(),
+                                    LocaleKeys.post.tr(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
@@ -452,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         MediaQuery.of(context).size.width * 0.5,
                                   ),
                                   child: Text(
-                                    LocaleKeys.track_status.tr(),
+                                    LocaleKeys.track.tr(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 25.0,
@@ -460,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Check status of your registered\n complaints.',
+                                  LocaleKeys.track_line.tr(),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 10.0,
@@ -505,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'SAVE\n\LIVES',
+                          LocaleKeys.save_lives.tr(),
                           style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 75.0,
@@ -518,7 +516,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 24.0,
                         ),
                         Text(
-                          'MADE WITH LOVE',
+                          LocaleKeys.made_with.tr(),
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!
