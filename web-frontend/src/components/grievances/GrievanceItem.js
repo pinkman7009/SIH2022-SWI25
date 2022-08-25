@@ -60,7 +60,7 @@ const GrievanceItem = ({ grievance, pending }) => {
       <div className="w-1/2">
         <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">ID</p>
-          <p>{_id}</p>
+          <p>{reportId}</p>
         </div>
         <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Name</p>
@@ -89,11 +89,21 @@ const GrievanceItem = ({ grievance, pending }) => {
             <img src={denySvg} alt="reject" className="h-6" />
             Reject
           </button>
-          <PrimaryButton text="Details" />
+          <PrimaryButton
+            text="Details"
+            handleClick={() => {
+              navigate(`/childmonitoring/childdetails/${reportId}`);
+            }}
+          />
         </div>
       ) : (
         <div className="my-auto flex flex-col">
-          <PrimaryButton text="Details" />
+          <PrimaryButton
+            text="Details"
+            handleClick={() => {
+              navigate(`/childmonitoring/childdetails/${reportId}`);
+            }}
+          />
           <PrimaryButton
             text="Register Child"
             handleClick={() =>

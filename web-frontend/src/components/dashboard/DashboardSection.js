@@ -111,7 +111,7 @@ const DashboardSection = () => {
           </button>
         </div>
       )}
-      <h3 className="text-2xl text-primary text-center">
+      <h3 className="text-2xl text-primary text-center m-3 font-bold">
         Locations of registered children
       </h3>
 

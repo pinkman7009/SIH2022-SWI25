@@ -1,59 +1,56 @@
 import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 
-const GeneralProfile = ({ child }) => {
+const GeneralProfile = ({ report }) => {
   const {
-    Caste,
-    FatherName,
-    MotherName,
-    Religion,
-    aadhaar,
-    currentAddress,
-    dateOfBirth,
-    gender,
+    description,
     name,
-    _id,
-  } = child;
+    photo,
+    pincode,
+    reportId,
+    reporterName,
+    reportingLocation,
+    severity,
+    status,
+  } = report[0];
   return (
     <div className="m-6">
-      <h2 className="font-bold text-2xl">General Details</h2>
-      <div className="border-primary border-2 shadow-md my-3 p-6 rounded-lg w-3/5 mx-auto flex justify-evenly items-center">
+      <h2 className="font-bold text-2xl">Report Details</h2>
+      <div className="border-primary border-2 shadow-md my-3 p-6 rounded-lg w-4/5 mx-auto flex justify-evenly items-center">
         <div className="w-1/2">
+          <div className="flex items-center justify-between my-3">
+            <p className="text-primary font-bold text-lg">Report Id:</p>
+            <p>{reportId}</p>
+          </div>
           <div className="flex items-center justify-between my-3">
             <p className="text-primary font-bold text-lg">Name of Child:</p>
             <p>{name}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Sex:</p>
-            <p>{gender}</p>
+            <p className="text-primary font-bold text-lg">Description:</p>
+            <p className="text-right pl-6">{description}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Father's Name:</p>
-            <p>{FatherName}</p>
+            <p className="text-primary font-bold text-lg">Pincode:</p>
+            <p>{pincode}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Mother's Name:</p>
-            <p>{MotherName}</p>
+            <p className="text-primary font-bold text-lg">Reporter Name:</p>
+            <p>{reporterName}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Date of Birth:</p>
-            <p>{dateOfBirth}</p>
+            <p className="text-primary font-bold text-lg">
+              Reporting Location:
+            </p>
+            <p>{reportingLocation}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Religion:</p>
-            <p>{Religion}</p>
+            <p className="text-primary font-bold text-lg">Severity:</p>
+            <p>{severity}</p>
           </div>
           <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Caste:</p>
-            <p>{Caste}</p>
-          </div>
-          <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Aadhaar No.:</p>
-            <p>{aadhaar}</p>
-          </div>
-          <div className="flex items-center justify-between my-3">
-            <p className="text-primary font-bold text-lg">Current Address</p>
-            <p>{currentAddress}</p>
+            <p className="text-primary font-bold text-lg">Status:</p>
+            <p>{status}</p>
           </div>
         </div>
 
