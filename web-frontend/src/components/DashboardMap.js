@@ -10,26 +10,21 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const DashboardMap = () => {
-  const location = {
-    address: "1600 Amphitheatre Parkway, Mountain View, california.",
-    lat: 23.794149,
-    lng: 86.425957,
-  };
+const DashboardMap = ({ acceptedGrievances }) => {
   return (
     <MapContainer
       style={{ height: "50vh" }}
-      center={[23.794149, 86.425957]}
-      zoom={13}
+      center={[23.512, 80.329]}
+      zoom={4}
       scrollWheelZoom={false}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[23.794149, 86.425957]}>
-        <Popup>{location.address}</Popup>
-      </Marker>
+      {acceptedGrievances.map((item) => (
+        <Marker position={[item.lat, item.long]} />
+      ))}
     </MapContainer>
   );
 };

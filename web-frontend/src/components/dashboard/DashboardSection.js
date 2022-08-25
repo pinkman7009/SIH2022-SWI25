@@ -9,7 +9,7 @@ import { fetchGrievances } from "../../store/actions/grievanceAction";
 import DashboardMap from "../DashboardMap";
 
 const DashboardSection = () => {
-  const grievances = useSelector((state) => state.grievances.reports);
+  const grievances = useSelector((state) => state.grievances);
   const dispatch = useDispatch();
 
   const pendingGrievances = grievances?.filter(
@@ -17,8 +17,12 @@ const DashboardSection = () => {
   );
 
   useEffect(() => {
-    if (!grievances) dispatch(fetchGrievances());
+    dispatch(fetchGrievances());
   }, []);
+
+  const acceptedGrievances = grievances.filter(
+    (item) => item.status === "Accepted"
+  );
 
   return (
     <div className="p-6">
@@ -74,7 +78,8 @@ const DashboardSection = () => {
       <h3 className="text-2xl text-primary text-center">
         Locations of registered children
       </h3>
-      <DashboardMap />
+
+      <DashboardMap acceptedGrievances={acceptedGrievances} />
     </div>
   );
 };
