@@ -293,22 +293,21 @@ const AdditionalDetails = () => {
   };
 
   return (
-    <div className="">
-      <div className="flex gap-2">
+    <div className="mx-6">
+      {/* <div className="flex gap-2">
         <Button name={"Socio"} value={"SOCIO"} />
         <Button name={"Economic"} value={"ECONOMIC"} />
         <Button name={"Education"} value={"EDUCATION"} />
         <Button name={"Health"} value={"HEALTH"} />
-      </div>
-      {curr === "SOCIO" ? (
-        <SocioContent />
-      ) : curr === "ECONOMIC" ? (
-        <EconomicContent />
-      ) : curr === "EDUCATION" ? (
-        <EducationContent />
-      ) : (
-        <HealthContent />
-      )}
+      </div> */}
+      <h2 className="font-bold text-2xl my-3">Social Details</h2>
+      <SocioContent />
+      <h2 className="font-bold text-2xl my-3">Economical Details</h2>
+      <EconomicContent />
+      <h2 className="font-bold text-2xl my-3">Educational Detials</h2>
+      <EducationContent />
+      <h2 className="font-bold text-2xl my-3">Health Detials</h2>
+      <HealthContent />
     </div>
   );
 };
