@@ -31,7 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedTables({ tableName, rows }) {
+export default function CustomizedTables({ isChild, tableName, rows }) {
   const [firstEmptyField, setFirstEmptyField] = useState({});
   const [editForm, setEditForm] = useState(null);
 
@@ -63,7 +63,9 @@ export default function CustomizedTables({ tableName, rows }) {
               <StyledTableCell align="center">Approver</StyledTableCell>
               <StyledTableCell align="center">Updated On</StyledTableCell>
               <StyledTableCell align="center">Status</StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
+              {isChild === false && (
+                <StyledTableCell align="center">Action</StyledTableCell>
+              )}
               <StyledTableCell align="center">Remarks</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -78,10 +80,12 @@ export default function CustomizedTables({ tableName, rows }) {
                     id="family-type"
                     className="py-2 px-8 outline-primary"
                   >
-                    <option value="volvo">Orphan</option>
-                    <option value="saab">Nuclear</option>
-                    <option value="opel">Joint</option>
-                    <option value="audi">Extented</option>
+                    <option value="volvo">NGO</option>
+
+                    <option value="volvo">District Education Office</option>
+                    <option value="saab">UIDI Regional Center</option>
+                    <option value="opel">District Health Office</option>
+                    <option value="audi">LIC Development Office</option>
                   </select>
                 </StyledTableCell>
                 <StyledTableCell align="center">
@@ -94,26 +98,28 @@ export default function CustomizedTables({ tableName, rows }) {
                     <p className="font-bold">Pending</p>
                   )}
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  {row.key === 1 && tableName === "Post Rescue" ? (
-                    <div className="flex justify-center items-center">
-                      <PrimaryButton
-                        text="Add Data"
-                        handleClick={() =>
-                          navigate("/childmonitoring/addchild")
-                        }
-                      />
-                    </div>
-                  ) : row.remarks !== "" ? (
-                    <div className="flex justify-center items-center">
-                      <PrimaryButton text="Download" />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center items-center">
-                      <PrimaryButton text="Request for Approval" />
-                    </div>
-                  )}
-                </StyledTableCell>
+                {isChild === false && (
+                  <StyledTableCell align="center">
+                    {row.key === 1 && tableName === "Post Rescue" ? (
+                      <div className="flex justify-center items-center">
+                        <PrimaryButton
+                          text="Add Data"
+                          handleClick={() =>
+                            navigate("/childmonitoring/addchild")
+                          }
+                        />
+                      </div>
+                    ) : row.remarks !== "" ? (
+                      <div className="flex justify-center items-center">
+                        <PrimaryButton text="Download" />
+                      </div>
+                    ) : (
+                      <div className="flex justify-center items-center">
+                        <PrimaryButton text="Request for Approval" />
+                      </div>
+                    )}
+                  </StyledTableCell>
+                )}
                 <StyledTableCell align="center">
                   {(tableName === "Pre Rescue" &&
                     row.key === firstEmptyField?.key) ||

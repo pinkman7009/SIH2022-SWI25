@@ -38,6 +38,7 @@ const ChildDetails = () => {
       {reports.length > 0 ? <GeneralProfile report={reports} /> : null}
 
       <CheckpointsTable
+        isChild={false}
         tableName={"Pre Rescue"}
         rows={[
           {
@@ -67,6 +68,7 @@ const ChildDetails = () => {
         ]}
       />
       <CheckpointsTable
+        isChild={false}
         tableName={"Post Rescue"}
         rows={[
           {
@@ -97,6 +99,7 @@ const ChildDetails = () => {
       />
       <InspectionTable />
       <CheckpointsTable
+        isChild={false}
         tableName={"Schemes and Measures"}
         rows={[
           {

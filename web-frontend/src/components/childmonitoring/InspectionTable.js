@@ -86,10 +86,12 @@ export default function InspectionTable() {
                     id="family-type"
                     className="py-2 px-8 outline-primary"
                   >
-                    <option value="volvo">Orphan</option>
-                    <option value="saab">Nuclear</option>
-                    <option value="opel">Joint</option>
-                    <option value="audi">Extented</option>
+                    <option value="volvo">NGO</option>
+
+                    <option value="volvo">District Education Office</option>
+                    <option value="saab">UIDI Regional Center</option>
+                    <option value="opel">District Health Office</option>
+                    <option value="audi">LIC Development Office</option>
                   </select>
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.details}</StyledTableCell>

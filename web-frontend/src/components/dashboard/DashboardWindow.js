@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import PendingGrievances from "../grievances/PendingGrievances";
 import PendingApprovals from "../approvals/PendingApprovals";
+import ApprovalDetails from "../approvals/ApprovalDetails";
 import AcceptedGrievances from "../grievances/AcceptedGrievances";
 import TopNavbar from "../TopNavbar";
 import DashboardSection from "./DashboardSection";
@@ -9,6 +10,7 @@ import AddChildForm from "../childmonitoring/AddChildForm";
 import ChildDatabase from "../childmonitoring/ChildDatabase";
 import ChildDetails from "../childmonitoring/ChildDetails";
 import SchemesPage from "../../pages/SchemesPage";
+import ChildLogin from "../../pages/ChildLogin";
 
 const DashboardWindow = () => {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ const DashboardWindow = () => {
             path="/approvals/pending"
             element={<PendingApprovals />}
           />
+          <Route exact path="/approvaldetails" element={<ApprovalDetails />} />
           <Route
             exact
             path="/grievances/accepted"
