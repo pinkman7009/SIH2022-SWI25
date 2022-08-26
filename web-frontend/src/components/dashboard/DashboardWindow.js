@@ -8,6 +8,7 @@ import DashboardSection from "./DashboardSection";
 import AddChildForm from "../childmonitoring/AddChildForm";
 import ChildDatabase from "../childmonitoring/ChildDatabase";
 import ChildDetails from "../childmonitoring/ChildDetails";
+import SchemesPage from "../../pages/SchemesPage";
 
 const DashboardWindow = () => {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const DashboardWindow = () => {
             path="/childmonitoring/childdetails/:id"
             element={<ChildDetails />}
           />
+          <Route exact path="/schemes" element={<SchemesPage />} />
         </Routes>
       </div>
       {/* {state.modal !== null ? (

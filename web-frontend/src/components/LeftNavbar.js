@@ -83,10 +83,10 @@ const LeftNavbar = () => {
             <NestedNav links={nestedlinks.childMonitoring} />
           ) : null} */}
         </div>
-        <NavLink to="/entitlementzone" activeClassName="active">
+        <NavLink to="/schemes" activeClassName="active">
           <div className="flex items-center transition-all p-3 hover:bg-secondary">
             <FaMapMarkerAlt />
-            <p className="ml-3">Entitlement Zone</p>
+            <p className="ml-3">Schemes and Measures</p>
           </div>
         </NavLink>
       </div>

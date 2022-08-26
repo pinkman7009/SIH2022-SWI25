@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
     "chart.js": "^3.7.1",
+    "faker": "^6.6.6",
     "google-map-react": "^2.1.10",
     "leaflet": "^1.8.0",
     "mapbox-gl": "^2.7.0",

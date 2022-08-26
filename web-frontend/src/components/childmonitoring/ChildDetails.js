@@ -96,6 +96,35 @@ const ChildDetails = () => {
         ]}
       />
       <InspectionTable />
+      <CheckpointsTable
+        tableName={"Schemes and Measures"}
+        rows={[
+          {
+            key: 1,
+            state: "Integrated Child Development Scheme",
+            processedOn: "",
+            remarks: postRescueDetails[0],
+          },
+          {
+            key: 2,
+            state: "Apki Beti Hamari Beti",
+            processedOn: "",
+            remarks: postRescueDetails[0],
+          },
+          {
+            key: 3,
+            state: "Integrated Child Protection Scheme",
+            processedOn: "",
+            remarks: postRescueDetails[1],
+          },
+          {
+            key: 4,
+            state: "Sukanya Samriddhi Yojna",
+            processedOn: "",
+            remarks: postRescueDetails[2],
+          },
+        ]}
+      />
       <AdditionalDetails />
 
       <div className="flex justify-center items-center">
