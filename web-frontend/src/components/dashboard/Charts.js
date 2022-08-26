@@ -108,11 +108,11 @@ const Charts = ({ stats }) => {
   });
 
   const [pieData, setPieData] = useState({
-    labels: Object.keys(stats.childrenAge),
+    labels: [6, 7, 8, 12],
     datasets: [
       {
         label: "Age of children registered",
-        data: pieStats.pieValues,
+        data: [1, 2, 1, 2],
         backgroundColor: [
           "rgba(236, 54, 110, 1)",
           "rgba(71, 139, 214, 1)",
