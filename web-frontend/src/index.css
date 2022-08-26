@@ -63,6 +63,10 @@ body {
   }
 }
 
+.z-999 {
+  z-index: 10000;
+}
+
 @media print {
   .no-print,
   .no-print * {
