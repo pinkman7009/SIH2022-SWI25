@@ -204,7 +204,7 @@ const AddChildForm = () => {
         </div>
       </div>
 
-      <ChildMonitoring />
+      {/* <ChildMonitoring /> */}
       <div className="flex justify-center items-center">
         <PrimaryButton text="Submit" handleClick={onSubmit} />
       </div>

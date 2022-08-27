@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT } from "../types";
 
 const initialState = {
-  token: null,
+  token: localStorage.getItem("token"),
 };
 
 const loginReducer = (state = initialState, action) => {

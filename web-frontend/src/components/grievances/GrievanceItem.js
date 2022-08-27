@@ -9,7 +9,18 @@ import { useDispatch } from "react-redux";
 import { fetchGrievances } from "../../store/actions/grievanceAction";
 
 const GrievanceItem = ({ grievance, pending }) => {
-  const { _id, name, description, photo } = grievance;
+  const {
+    _id,
+    name,
+    description,
+    photo,
+    reportId,
+    lat,
+    long,
+    pincode,
+    reporterNumber,
+    severity,
+  } = grievance;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,12 +32,11 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}`,
-        { status: "Accepted" },
+        `${process.env.REACT_APP_API_URL}/report/${reportId}?status=Accepted`,
         { headers }
       );
 
-      navigate("/grievances/accepted");
+      navigate(`/childmonitoring/childdetails/${reportId}`);
     } catch (error) {
       console.log({ error });
     }
@@ -40,8 +50,7 @@ const GrievanceItem = ({ grievance, pending }) => {
 
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_API_URL}/report/${_id}`,
-        { status: "Denied" },
+        `${process.env.REACT_APP_API_URL}/report/${reportId}?status=Denied`,
         { headers }
       );
 
@@ -54,15 +63,15 @@ const GrievanceItem = ({ grievance, pending }) => {
 
   return (
     <div className="border-2 border-primary shadow-xl rounded-xl p-6 flex justify-between w-full my-6">
-      <div className=" p-6 rounded-full flex justify-center items-center">
+      <div className=" p-4 rounded-full flex justify-center items-center">
         <img src={photo} alt="" className="rounded-full h-32 w-32" />
       </div>
 
       <div className="border-r-2 border-gray-400 mx-6"></div>
       <div className="w-1/2">
         <div className="flex my-3">
-          <p className="text-gray-400 font-bold text-md mr-3">ID</p>
-          <p>{_id}</p>
+          <p className="text-gray-400 font-bold text-md mr-3">Reporter's ID</p>
+          <p>{reportId}</p>
         </div>
         <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Name</p>
@@ -71,6 +80,28 @@ const GrievanceItem = ({ grievance, pending }) => {
         <div className="flex my-3">
           <p className="text-gray-400 font-bold text-md mr-3">Description</p>
           <p>{description}</p>
+        </div>
+        <div className="flex my-3">
+          <p className="text-gray-400 font-bold text-md mr-3">Latitude</p>
+          <p>{lat}</p>
+        </div>
+        <div className="flex my-3">
+          <p className="text-gray-400 font-bold text-md mr-3">Longitude</p>
+          <p>{long}</p>
+        </div>
+        <div className="flex my-3">
+          <p className="text-gray-400 font-bold text-md mr-3">Pincode</p>
+          <p>{pincode}</p>
+        </div>
+        <div className="flex my-3">
+          <p className="text-gray-400 font-bold text-md mr-3">
+            Reporter Number
+          </p>
+          <p>{reporterNumber}</p>
+        </div>
+        <div className="flex my-3">
+          <p className="text-gray-400 font-bold text-md mr-3">Severity</p>
+          <p>{severity}</p>
         </div>
       </div>
       {pending === true ? (
@@ -91,11 +122,15 @@ const GrievanceItem = ({ grievance, pending }) => {
             <img src={denySvg} alt="reject" className="h-6" />
             Reject
           </button>
-          <PrimaryButton text="Details" />
         </div>
       ) : (
         <div className="my-auto flex flex-col">
-          <PrimaryButton text="Details" />
+          <PrimaryButton
+            text="Details"
+            handleClick={() => {
+              navigate(`/childmonitoring/childdetails/${reportId}`);
+            }}
+          />
           <PrimaryButton
             text="Register Child"
             handleClick={() =>
